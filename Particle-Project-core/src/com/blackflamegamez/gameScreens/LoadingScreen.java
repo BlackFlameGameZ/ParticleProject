@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import com.blackflamegamez.game.AnimatedSprite;
 import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.GameCore;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
 
 public class LoadingScreen extends ScreenAdapter
 {
@@ -61,6 +62,6 @@ public class LoadingScreen extends ScreenAdapter
 		
 		label.setText((int)(Assets.manager.getProgress() * 100) + "%");
 		if(Assets.manager.getProgress() == 1)
-			((GameCore)Gdx.app.getApplicationListener()).setScreen(new SplashScreen(batch));
+			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setSplashScreen();
 	}
 }

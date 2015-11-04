@@ -83,4 +83,10 @@ public class AnimatedSprite extends ScreenAdapter
 	{
 		return animation.getKeyFrame(stateTime);
 	}
+	
+	public boolean animationFinished(float deltaTime)
+	{
+		return animation.isAnimationFinished(deltaTime);
+	}
+	
 }

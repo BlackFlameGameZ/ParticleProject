@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.blackflamegamez.game.AnimatedSprite;
 import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.GameCore;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
 
 public class SplashScreen extends ScreenAdapter
 {

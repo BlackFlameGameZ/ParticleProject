@@ -1,17 +1,14 @@
-package com.blackflamegamez.game;
+package com.blackflamegamez.game.staticfields;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.blackflamegamez.game.staticfields.GameStaticValues;
-import com.blackflamegamez.gameScreens.LoadingScreen;
+import com.blackflamegamez.game.GameCore;
+import com.blackflamegamez.game.Ratios;
 
-public class GameCore extends Game 
+public class GameStaticValues 
 {
-	private SpriteBatch batch;
 	
-	public static float defaultWidth 	= 2560f;
-	public static float defaultHeight 	= 1600f;
+	public static float defaultWidth = GameCore.defaultWidth;
+	public static float defaultHeight= GameCore.defaultHeight;
 	
 	public static float realWidth;
 	public static float realHeight;
@@ -19,26 +16,9 @@ public class GameCore extends Game
 	public static float hRatio;
 	public static float ratioDifference;
 	
-	private GameManager gameManager;
-	
-	@Override
-	public void create() 
+	public static void calculate()
 	{
-		GameStaticValues.calculate();
-		calculateScreen();
-		batch = new SpriteBatch();
-		gameManager = new GameManager(this , batch);
-		Assets.load();
-		gameManager.setLoadingScreen();
-	}
-	
-	public GameManager getGameManager()
-	{
-		return gameManager;
-	}
-	
-	private void calculateScreen()
-	{
+
 		realWidth 	= Gdx.graphics.getWidth();
 		realHeight 	= Gdx.graphics.getHeight();
 		float tmpRatio = realWidth / realHeight;
