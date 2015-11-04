@@ -11,7 +11,7 @@ public class Assets
 	public static void load()
 	{
 		manager.load("images/particle/base.png", Texture.class);
-		
+		//komentar
 		for(int i = 1 ; i < 6 ; i++)
 		{
 			manager.load("images/particle/atk_" + i + ".png", Texture.class);
