@@ -15,17 +15,11 @@ public class SplashScreen extends ScreenAdapter
 	private SpriteBatch 	batch;
 	private AnimatedSprite 	splashSprite;
 	private float			elapsedTime;
-	private float 			hr;
-	private float 			vr;
-	private float 			rd;
 
 	public SplashScreen(SpriteBatch batch) 
 	{
 		this.batch 		= batch;
 		splashSprite 	= new AnimatedSprite(Assets.manager.get("images/splash_#[625,493].png", Texture.class), 625, 493, false);
-		hr				= GameCore.hRatio;
-		vr				= GameCore.vRatio;
-		rd				= GameCore.ratioDifference;
 	}
 	
 	@Override
@@ -41,7 +35,9 @@ public class SplashScreen extends ScreenAdapter
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		elapsedTime += delta;
 		batch.begin();
-			batch.draw(splashSprite.getFrame(elapsedTime), 967 * hr, 620 * vr, 625 * hr, 493 * hr);
+			batch.draw(splashSprite.getFrame(elapsedTime), 967 * hRatio, 620 * vRatio - ratioDifference, 625 * hRatio, 493 * hRatio);
 		batch.end();
+		if(splashSprite.animationFinished(elapsedTime))
+			((GameCore)Gdx.app.getApplicationListener()).setScreen(new ParticleGameScreen(batch));
 	}
 }

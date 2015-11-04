@@ -19,6 +19,9 @@ public class Assets
 		}
 		
 		manager.load("images/splash_#[625,493].png", Texture.class);
+		manager.load("images/board_grid.png", Texture.class);
+		manager.load("images/board_1.png", Texture.class);
+		manager.load("images/board_2.png", Texture.class);
 		manager.load("files/uiskin.json", Skin.class);
 	}
 }
