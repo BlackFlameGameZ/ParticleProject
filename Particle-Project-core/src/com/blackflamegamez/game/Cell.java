@@ -12,7 +12,7 @@ public class Cell extends Body2D
 	private int row;
 	private int col;
 	private Hexagon hexagon;
-	//private Virus   virus;
+	//private Particle particle;
 	
 	public Cell(float x , float y , float width , float height , int row , int col , Hexagon hexagon)
 	{
@@ -20,7 +20,7 @@ public class Cell extends Body2D
 		this.row      = row;
 		this.col	  = col;
 		this.hexagon  = hexagon;
-//		this.virus    = null; //TODO
+//		this.particle = null;
 	}
 	
 	public boolean contains(float x , float y)
@@ -28,4 +28,31 @@ public class Cell extends Body2D
 		return hexagon.contains(x , y);
 	}
 	
+	public void createParticle()
+	{
+		/*
+		if(particle == null)
+			particle = new Partticle
+		*/
+	}
+	
+	public int getRow()
+	{
+		return row;
+	}
+	
+	public int getCol()
+	{
+		return col;
+	}
+	
+	public void setCol(int col)
+	{
+		this.col = col;
+	}
+	
+	public void setRow(int row)
+	{
+		this.row = row;
+	}
 }
