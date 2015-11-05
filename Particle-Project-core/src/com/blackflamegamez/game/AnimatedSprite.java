@@ -88,5 +88,4 @@ public class AnimatedSprite extends ScreenAdapter
 	{
 		return animation.isAnimationFinished(deltaTime);
 	}
-	
 }
