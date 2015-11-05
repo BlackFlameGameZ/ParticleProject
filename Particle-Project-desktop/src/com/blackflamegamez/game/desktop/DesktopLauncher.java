@@ -8,8 +8,9 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		System.out.println("Before LwjglApplication");
-		config.width 	= 1276;//LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+		config.width 	= 1280;//LwjglApplicationConfiguration.getDesktopDisplayMode().width;
 		config.height 	= 720;//LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+		config.resizable= false;
 		//config.fullscreen = true;
 		new LwjglApplication(new GameCore(), config);
 		System.out.println("After LwjglApplication");
