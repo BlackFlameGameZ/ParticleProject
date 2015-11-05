@@ -1,5 +1,6 @@
 package com.blackflamegamez.game;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blackflamegamez.game.geometry.Body2D;
 
 /**
@@ -54,5 +55,10 @@ public class Cell extends Body2D
 	public void setRow(int row)
 	{
 		this.row = row;
+	}
+	
+	public void debug(ShapeRenderer sr)
+	{
+		hexagon.debug(sr);
 	}
 }

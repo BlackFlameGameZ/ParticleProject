@@ -1,4 +1,5 @@
 package com.blackflamegamez.game.geometry;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
 
 
 /**
@@ -15,10 +16,10 @@ public class Body2D
 	
 	public Body2D(float x , float y , float width , float height)
 	{
-		this.x = x;
-		this.x = y;
-		this.width = width;
-		this.height = height;
+		this.x = x * hRatio;
+		this.x = y * vRatio - ratioDifference;
+		this.width = width * hRatio;
+		this.height = height * hRatio;
 	}
 	
 	public float getX()

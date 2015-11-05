@@ -2,6 +2,7 @@ package com.blackflamegamez.game;
 
 import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
@@ -17,7 +18,7 @@ public class Hexagon
 	{
 		float newWidth = rectWidth * hRatio;
 		x1 *= hRatio;
-		y1 = y1 * vRatio - 3 * newWidth / 4;
+		y1 = y1 * vRatio - ratioDifference;
 		Float[] arr = new Float[]{x1 , y1 , x1 + newWidth / 2 , y1 - newWidth / 4 , x1 + newWidth , y1 , x1 + newWidth , y1 + newWidth / 2 , x1 + newWidth/2 , y1 + newWidth/2 + newWidth/4 , x1 , y1 + newWidth/2};
 		calculateVertices(arr);
 	}
@@ -27,8 +28,8 @@ public class Hexagon
 		float newWidth = rectWidth * hRatio;
 		x1 *= hRatio;
 		x2 *= hRatio;
-		y1 *= vRatio;
-		y2 *= vRatio;
+		y1 *= vRatio - ratioDifference;
+		y2 *= vRatio - ratioDifference;
 		Float[] arr = new Float[]{x1 , y1 , x2 , y2 , x2 + newWidth , y2 , x1 + 2 * (x2 - x1) + newWidth , y1 , x2 + newWidth , y1 + y1 - y2 , x2 , y1 + y1 - y2};
 		calculateVertices(arr);
 	}
