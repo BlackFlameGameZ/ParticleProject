@@ -70,11 +70,8 @@ public class SplashScreen extends ScreenAdapter
 			mode = 2;
 			alphaStep = -alphaStep;
 		}
-		System.out.println("Alpha: " + alpha);
+		
 		if(mode == 2 && alpha < 0.6)
-		{
-			System.out.println("Set screen ParticleGame");
 			((GameCore)Gdx.app.getApplicationListener()).setScreen(new ParticleGameScreen(batch));
-		}
 	}
 }
