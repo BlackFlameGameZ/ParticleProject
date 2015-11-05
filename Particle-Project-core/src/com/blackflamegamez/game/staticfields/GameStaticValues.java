@@ -39,7 +39,7 @@ public class GameStaticValues
 			hRatio = realWidth / defaultWidth;
 			vRatio = hRatio;
 			ratioDifference = (int)(realHeight - defaultHeight * hRatio) / 2;
-			if(tmpRatio < Ratios._16_10)
+			if(tmpRatio < Ratios._16_9)
 			{
 				ratioDifference = -ratioDifference;
 				System.out.println("Vece !!!");
