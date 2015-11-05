@@ -37,7 +37,7 @@ public class SplashScreen extends ScreenAdapter
 	{
 		float started = System.currentTimeMillis();
 		elapsedTime = 0f;
-		alpha 		= 0.6f;
+		alpha 		= 0;
 		alphaStep	= 1f/60f;
 		mode 		= 0;
 		batchColor 	= batch.getColor();
@@ -59,7 +59,7 @@ public class SplashScreen extends ScreenAdapter
 			batch.setColor(batchColor);
 		batch.end();
 		
-		if(mode == 0 &&alpha > 1)
+		if(mode == 0 && alpha > 1)
 		{
 			alpha = 1;
 			mode++;
@@ -71,7 +71,7 @@ public class SplashScreen extends ScreenAdapter
 			alphaStep = -alphaStep;
 		}
 		
-		if(mode == 2 && alpha < 0.6)
+		if(mode == 2 && alpha < 0)
 			((GameCore)Gdx.app.getApplicationListener()).setScreen(new ParticleGameScreen(batch));
 	}
 }
