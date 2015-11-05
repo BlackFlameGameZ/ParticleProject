@@ -1,9 +1,9 @@
 package com.blackflamegamez.game;
 
 import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -47,9 +47,9 @@ public class Hexagon
 
 	public void debug(ShapeRenderer sr)
 	{	
-		for(int i = 0 ; i < vertices.size() - 1 ; ++i)
+		for(int i = 0 ; i < vertices.size - 1 ; ++i)
 			sr.line(vertices.get(i) , vertices.get(i + 1));	
-		sr.line(vertices.get(vertices.size() - 1) , vertices.get(0));
+		sr.line(vertices.get(vertices.size - 1) , vertices.get(0));
 	}
 	
 }
