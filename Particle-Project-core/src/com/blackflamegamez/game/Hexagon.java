@@ -44,5 +44,12 @@ public class Hexagon
 	{
 		return Intersector.isPointInPolygon(vertices, new Vector2(x , y));
 	}
+
+	public void debug(ShapeRenderer sr)
+	{	
+		for(int i = 0 ; i < vertices.size() - 1 ; ++i)
+			sr.line(vertices.get(i) , vertices.get(i + 1));	
+		sr.line(vertices.get(vertices.size() - 1) , vertices.get(0));
+	}
 	
 }
