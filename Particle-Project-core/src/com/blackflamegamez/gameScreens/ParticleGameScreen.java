@@ -119,7 +119,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	
 	private void loadAssets()
 	{
-		board		= Assets.manager.get("images/board_1.png", Texture.class);
+		board		= GameCore.getBackground();
 		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
 		board.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		board_grid.setFilter(TextureFilter.Linear, TextureFilter.Linear);
