@@ -53,4 +53,9 @@ public class Hexagon
 		sr.line(vertices.get(vertices.size - 1) , vertices.get(0));
 	}
 	
+	public Array<Vector2> getVertices()
+	{
+		return vertices;
+	}
+	
 }

@@ -21,6 +21,7 @@ import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.Cell;
 import com.blackflamegamez.game.GameCore;
 import com.blackflamegamez.game.Hexagon;
+import com.blackflamegamez.game.ParticleUtil;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
 
@@ -41,16 +42,14 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public ParticleGameScreen(SpriteBatch batch) 
 	{
 		this.batch 	= batch;
-		board		= GameCore.getBackground();
-		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
-		board.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		board_grid.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		stage       = new Stage();
 		listener    = new CustomInputListener(this);
 		sr			= new ShapeRenderer();
 		stage.addListener(listener);
 		Gdx.input.setInputProcessor(stage);
 		makeCells();
+		determineNeighbours();
+		loadAssets();
 	}
 	
 	@Override
@@ -90,6 +89,15 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		return c;
 	}
 	
+	private void determineNeighbours()
+	{
+		for(Cell c : cells)
+		{
+			ArrayList<Cell> n = ParticleUtil.getNeighboursForCell(c, cells);
+			c.setNeighbours(n);
+		}
+	}
+	
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer,
 			int button) 
@@ -105,6 +113,25 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) 
+	{
+		
+	}
+	
+	private void loadAssets()
+	{
+		board		= Assets.manager.get("images/board_1.png", Texture.class);
+		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
+		board.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		board_grid.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+	}
+	
+	@Override
+	public void resume() 
+	{
+		super.resume();
+	}
+	
+	public void hide()
 	{
 		
 	}

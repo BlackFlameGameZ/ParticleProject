@@ -1,5 +1,7 @@
 package com.blackflamegamez.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blackflamegamez.game.geometry.Body2D;
 
@@ -13,7 +15,7 @@ public class Cell extends Body2D
 	private int row;
 	private int col;
 	private Hexagon hexagon;
-	//private Particle particle;
+	private ArrayList<Cell> neighbours;
 	
 	public Cell(float x , float y , float width , float height , int row , int col , Hexagon hexagon)
 	{
@@ -21,6 +23,7 @@ public class Cell extends Body2D
 		this.row      = row;
 		this.col	  = col;
 		this.hexagon  = hexagon;
+		this.neighbours = new ArrayList<Cell>();
 //		this.particle = null;
 	}
 	
@@ -29,12 +32,21 @@ public class Cell extends Body2D
 		return hexagon.contains(x , y);
 	}
 	
-	public void createParticle()
+	public void addNeighbour(Cell c)
 	{
-		/*
-		if(particle == null)
-			particle = new Partticle
-		*/
+		if(neighbours.contains(c))
+			return;
+		neighbours.add(c);
+	}
+	
+	public void setNeighbours(ArrayList<Cell> n)
+	{
+		this.neighbours = n;
+	}
+	
+	public ArrayList<Cell> getNeighbours()
+	{
+		return neighbours;
 	}
 	
 	public int getRow()
@@ -55,6 +67,11 @@ public class Cell extends Body2D
 	public void setRow(int row)
 	{
 		this.row = row;
+	}
+	
+	public Hexagon getHexagon()
+	{
+		return hexagon;
 	}
 	
 	public void debug(ShapeRenderer sr)
