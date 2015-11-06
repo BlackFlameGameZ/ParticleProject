@@ -43,4 +43,9 @@ public class Player
 	public void touchDragged(InputEvent event , float x , float y , int pointer)
 	{
 	}
+	
+	public void command(String action)
+	{
+		
+	}
 }
