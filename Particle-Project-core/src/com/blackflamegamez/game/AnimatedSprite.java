@@ -47,6 +47,7 @@ public class AnimatedSprite extends ScreenAdapter
 	public AnimatedSprite(String texturePath, float width, float height, boolean loop) 
 	{
 		this.texture 	= new Texture(texturePath);
+		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		this.width		= width;
 		this.height		= height;
 		this.loop		= loop;
@@ -55,7 +56,6 @@ public class AnimatedSprite extends ScreenAdapter
 	
 	private void createAnimation()
 	{
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		int matrixWidth 	= texture.getWidth()/(int)width;
 		int matrixHeight 	= texture.getHeight()/(int)height;
 		

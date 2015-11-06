@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.Cell;
+import com.blackflamegamez.game.GameCore;
 import com.blackflamegamez.game.Hexagon;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
@@ -40,7 +41,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public ParticleGameScreen(SpriteBatch batch) 
 	{
 		this.batch 	= batch;
-		board		= Assets.manager.get("images/board_1.png", Texture.class);
+		board		= GameCore.getBackground();
 		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
 		board.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		board_grid.setFilter(TextureFilter.Linear, TextureFilter.Linear);

@@ -72,6 +72,6 @@ public class SplashScreen extends ScreenAdapter
 		}
 		
 		if(mode == 2 && alpha < 0)
-			((GameCore)Gdx.app.getApplicationListener()).setScreen(new ParticleGameScreen(batch));
+			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setMainMenuScreen();
 	}
 }
