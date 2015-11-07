@@ -36,4 +36,10 @@ public class GameCore extends Game
 	{
 		return background;
 	}
+	
+	@Override
+	public void dispose() 
+	{
+		Assets.manager.dispose();
+	}
 }

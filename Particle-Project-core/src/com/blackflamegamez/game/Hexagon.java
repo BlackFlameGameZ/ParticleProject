@@ -10,9 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 public class Hexagon 
 {
-
 	private Array<Vector2> vertices;
-
 	
 	public Hexagon(float x1 , float y1 , float rectWidth)
 	{
@@ -28,8 +26,13 @@ public class Hexagon
 		float newWidth = rectWidth * hRatio;
 		x1 *= hRatio;
 		x2 *= hRatio;
-		y1 *= vRatio - ratioDifference;
-		y2 *= vRatio - ratioDifference;
+		y1 *= vRatio;
+		y1 -= ratioDifference;
+		y2 *= vRatio;
+		y2 -= ratioDifference;
+		
+		// DEBUG  System.out.println("(x1, y1) => (" + x1 + ", " + y1 + "\n(x2, y2) => (" + x2 + ", " + y2 + ")\nratioDifference => " + ratioDifference);
+		
 		Float[] arr = new Float[]{x1 , y1 , x2 , y2 , x2 + newWidth , y2 , x1 + 2 * (x2 - x1) + newWidth , y1 , x2 + newWidth , y1 + y1 - y2 , x2 , y1 + y1 - y2};
 		calculateVertices(arr);
 	}

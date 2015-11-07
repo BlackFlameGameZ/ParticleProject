@@ -1,8 +1,7 @@
 package com.blackflamegamez.gameScreens;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -17,34 +16,34 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.CustomButton;
 import com.blackflamegamez.game.GameCore;
-import com.blackflamegamez.game.RectangleButton;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
 
-public class MainMenuScreen extends ScreenAdapter implements Touchable
+public class PlayScreen extends ScreenAdapter implements Touchable
 {
 	private SpriteBatch 	batch;
 	private Texture 		background;
-	private CustomButton 	play;
-	private CustomButton 	options;
-	private CustomButton 	exit;
+	private CustomButton 	sPlayer;
+	private CustomButton 	bluetooth;
+	private CustomButton 	online;
+	private CustomButton 	back;
 	private CustomButton 	pressedButton;
 	private ShapeRenderer 	sr;
 	private Stage 			stage;
 	
-	
-	public MainMenuScreen(SpriteBatch batch) 
+	public PlayScreen(SpriteBatch batch) 
 	{
 		this.batch 	= batch;
 		background 	= GameCore.getBackground();
-		play 		= new CustomButton(Assets.manager.get("images/mm_screen/play_[975, 800].png", Texture.class), Assets.manager.get("images/mm_screen/play_pressed_[975, 800].png", Texture.class), 975, 800);
-		options 	= new CustomButton(Assets.manager.get("images/mm_screen/options_[975, 601].png", Texture.class), Assets.manager.get("images/mm_screen/options_pressed_[975, 601].png", Texture.class), 975, 601);
-		exit 		= new CustomButton(Assets.manager.get("images/mm_screen/exit_[975, 402].png", Texture.class), Assets.manager.get("images/mm_screen/exit_pressed_[975, 402].png", Texture.class), 975, 402);
+		sPlayer 	= new CustomButton(Assets.manager.get("images/play_screen/single_player_[617, 800].png", Texture.class), Assets.manager.get("images/play_screen/single_player_pressed_[617, 800].png", Texture.class), 617, 800);
+		bluetooth 	= new CustomButton(Assets.manager.get("images/play_screen/bluetooth_[617, 999].png", Texture.class), Assets.manager.get("images/play_screen/bluetooth_pressed_[617, 999].png", Texture.class), 617, 601);
+		online 		= new CustomButton(Assets.manager.get("images/play_screen/online_[1332, 800].png", Texture.class), Assets.manager.get("images/play_screen/online_pressed_[1332, 800].png", Texture.class), 1332, 800);
+		back 		= new CustomButton(Assets.manager.get("images/play_screen/back_[1332, 999].png", Texture.class), Assets.manager.get("images/play_screen/back_pressed_[1332, 999].png", Texture.class), 1332, 601);
 		sr 			= new ShapeRenderer();
 		stage 		= new Stage();
-		
 		stage.addListener(new CustomInputListener(this));
-		options.setDisabled(true);
+		sPlayer.setDisabled(true);
+		online.setDisabled(true);
 	}
 	
 	@Override
@@ -60,36 +59,38 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 			batch.draw(background, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
-			batch.draw(Assets.manager.get("images/mm_screen/title_[870, 1027].png", Texture.class), 870 * hRatio, 1027 * vRatio - ratioDifference, 820 * hRatio, 300 * hRatio);
+			batch.draw(Assets.manager.get("images/play_screen/title_[1024, 1054].png", Texture.class), 1024 * hRatio, 1054 * vRatio - ratioDifference, 511 * hRatio, 170 * hRatio);
 			batch.draw(Assets.manager.get("images/mm_screen/top_left.png", Texture.class), 0, 913 * vRatio - 2*ratioDifference, 872 * hRatio, 687 * hRatio);
-			batch.draw(Assets.manager.get("images/mm_screen/top_right.png", Texture.class), 1688 * hRatio, 913 * vRatio - 2*ratioDifference, 872 * hRatio, 687 * hRatio);
+			batch.draw(Assets.manager.get("images/mm_screen/top_right.png", Texture.class), 1688 * hRatio, 913 * vRatio - 2 *ratioDifference, 872 * hRatio, 687 * hRatio);
 			batch.draw(Assets.manager.get("images/mm_screen/bottom_left.png", Texture.class), 0, 0, 872 * hRatio, 687 * hRatio);
 			batch.draw(Assets.manager.get("images/mm_screen/bottom_right.png", Texture.class), 1688 * hRatio, 0, 872 * hRatio, 687 * hRatio);
-			play.render(batch);
-			options.render(batch);
-			exit.render(batch);
+			sPlayer.render(batch);
+			bluetooth.render(batch);
+			online.render(batch);
+			back.render(batch);
 		batch.end();
 		/* DEBUGGING*/
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
-			play.debug(sr);
-			options.debug(sr);
-			exit.debug(sr);
+			sPlayer.debug(sr);
+			bluetooth.debug(sr);
+			online.debug(sr);
+			back.debug(sr);
 		sr.end();
 	}
 
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) 
 	{
-		if(play.contains(x, y))
+		if(bluetooth.contains(x, y))
 		{
-			play.setPressed(true);
-			pressedButton = play;
+			bluetooth.setPressed(true);
+			pressedButton = bluetooth;
 		}
-		else if(exit.contains(x, y))
+		else if(back.contains(x, y))
 		{
-			exit.setPressed(true);
-			pressedButton = exit;
+			back.setPressed(true);
+			pressedButton = back;
 		}
 		return true;
 	}
@@ -99,19 +100,17 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 	{
 		if(pressedButton != null && pressedButton.contains(x, y))
 		{
-			if(pressedButton.equals(play))
-				((GameCore)Gdx.app.getApplicationListener()).getGameManager().setPlayScreen();
-			if(pressedButton.equals(exit))
-			{
-				((GameCore)Gdx.app.getApplicationListener()).dispose();
-				System.exit(0);
-			}
+			if(pressedButton.equals(bluetooth))
+				((GameCore)Gdx.app.getApplicationListener()).getGameManager().setGameScreen();
+			if(pressedButton.equals(back))
+				((GameCore)Gdx.app.getApplicationListener()).getGameManager().setMainMenuScreen();
 		}
 		
 		pressedButton = null;
-		play.setPressed(false);
-		options.setPressed(false);
-		exit.setPressed(false);
+		sPlayer.setPressed(false);
+		bluetooth.setPressed(false);
+		online.setPressed(false);
+		back.setPressed(false);
 	}
 
 	@Override

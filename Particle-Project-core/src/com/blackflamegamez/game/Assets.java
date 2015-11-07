@@ -35,6 +35,17 @@ public class Assets
 		manager.load("images/mm_screen/bottom_left.png", Texture.class);
 		manager.load("images/mm_screen/bottom_right.png", Texture.class);
 		manager.load("images/mm_screen/title_[870, 1027].png", Texture.class);
+		manager.load("images/play_screen/title_[1024, 1054].png", Texture.class);
+		manager.load("images/play_screen/back_[1332, 999].png", Texture.class);
+		manager.load("images/play_screen/back_pressed_[1332, 999].png", Texture.class);
+		manager.load("images/play_screen/bluetooth_[617, 999].png", Texture.class);
+		manager.load("images/play_screen/bluetooth_pressed_[617, 999].png", Texture.class);
+		manager.load("images/play_screen/online_[1332, 800].png", Texture.class);
+		manager.load("images/play_screen/online_pressed_[1332, 800].png", Texture.class);
+		manager.load("images/play_screen/single_player_[617, 800].png", Texture.class);
+		manager.load("images/play_screen/single_player_pressed_[617, 800].png", Texture.class);
+		manager.load("images/menu.png", Texture.class);
+		manager.load("images/menu_pressed.png", Texture.class);
 	}
 	
 	public static void setFilters()
@@ -54,5 +65,16 @@ public class Assets
 		manager.get("images/mm_screen/bottom_left.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/mm_screen/bottom_right.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/mm_screen/title_[870, 1027].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/title_[1024, 1054].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/back_[1332, 999].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/back_pressed_[1332, 999].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/bluetooth_[617, 999].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/bluetooth_pressed_[617, 999].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/online_[1332, 800].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/online_pressed_[1332, 800].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/single_player_[617, 800].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/play_screen/single_player_pressed_[617, 800].png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/menu.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/menu_pressed.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 }

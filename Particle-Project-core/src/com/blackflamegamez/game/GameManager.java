@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.blackflamegamez.gameScreens.LoadingScreen;
 import com.blackflamegamez.gameScreens.MainMenuScreen;
 import com.blackflamegamez.gameScreens.ParticleGameScreen;
+import com.blackflamegamez.gameScreens.PlayScreen;
 import com.blackflamegamez.gameScreens.SplashScreen;
 
 
@@ -18,16 +19,21 @@ public class GameManager
 	private Screen      loadingScreen;
 	private Screen      splashScreen;
 	private Screen		mmScreen;
+	private Screen		gameScreen;
 	private Screen		playScreen;
 	private Screen      currentScreen;
 	private GameCore    game;
 	
 	public GameManager(GameCore game , SpriteBatch batch)
 	{
-		this.game  = game;
-		this.batch = batch;
-		this.loadingScreen = null;
-		this.splashScreen  = null;
+		this.game  		= game;
+		this.batch 		= batch;
+		loadingScreen 	= null;
+		splashScreen 	= null;
+		mmScreen 		= null;
+		gameScreen 		= null;
+		playScreen		= null;
+		
 		this.currentScreen = game.getScreen();
 	}
 	
@@ -65,10 +71,18 @@ public class GameManager
 		game.setScreen(currentScreen);
 	}
 	
-	public void setPlayScreen()
+	public void setGameScreen()
+	{
+		if(gameScreen == null)
+			gameScreen = new ParticleGameScreen(batch);
+		currentScreen = gameScreen;
+		game.setScreen(currentScreen);
+	}
+	
+	public void setPlayScreen() 
 	{
 		if(playScreen == null)
-			playScreen = new ParticleGameScreen(batch);
+			playScreen = new PlayScreen(batch);
 		currentScreen = playScreen;
 		game.setScreen(currentScreen);
 	}

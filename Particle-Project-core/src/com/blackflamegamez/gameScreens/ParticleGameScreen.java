@@ -22,6 +22,7 @@ import com.blackflamegamez.game.Cell;
 import com.blackflamegamez.game.GameCore;
 import com.blackflamegamez.game.Hexagon;
 import com.blackflamegamez.game.ParticleUtil;
+import com.blackflamegamez.game.RectangleButton;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
 
@@ -38,6 +39,8 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	private Stage          		stage;
 	private CustomInputListener listener;
 	private ShapeRenderer       sr;
+	private RectangleButton 	menu;
+	private RectangleButton		pressedButton;
 	
 	public ParticleGameScreen(SpriteBatch batch) 
 	{
@@ -45,11 +48,18 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		stage       = new Stage();
 		listener    = new CustomInputListener(this);
 		sr			= new ShapeRenderer();
+		menu 		= new RectangleButton(Assets.manager.get("images/menu.png", Texture.class), Assets.manager.get("images/menu_pressed.png", Texture.class), 0, 1472, 318, 100);
 		stage.addListener(listener);
-		Gdx.input.setInputProcessor(stage);
 		makeCells();
 		determineNeighbours();
 		loadAssets();
+	}
+	
+	@Override
+	public void show() 
+	{
+		pressedButton = null;
+		Gdx.input.setInputProcessor(stage);
 	}
 	
 	@Override
@@ -60,11 +70,13 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		batch.begin();
 			batch.draw(board, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
 			batch.draw(board_grid, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
+			menu.render(batch);
 		batch.end();
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
 			for(Cell c : cells)
 				c.debug(sr);
+			menu.debug(sr);
 		sr.end();
 	}
 
@@ -99,16 +111,26 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	}
 	
 	@Override
-	public boolean touchDown(InputEvent event, float x, float y, int pointer,
-			int button) 
+	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) 
 	{
-		return false;
+		if(menu.contains(x, y))
+		{
+			menu.setPressed(true);
+			pressedButton = menu;
+		}
+		return true;
 	}
 
 	@Override
-	public void touchUp(InputEvent event, float x, float y, int pointer,
-			int button) 
+	public void touchUp(InputEvent event, float x, float y, int pointer, int button) 
 	{
+		if(pressedButton != null && pressedButton.contains(x, y))
+		{
+			if(pressedButton.equals(menu))
+				((GameCore)Gdx.app.getApplicationListener()).getGameManager().setMainMenuScreen();
+		}
+		menu.setPressed(false);
+		pressedButton = null;
 	}
 
 	@Override
