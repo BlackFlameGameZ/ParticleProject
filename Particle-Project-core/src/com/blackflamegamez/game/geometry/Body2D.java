@@ -17,7 +17,7 @@ public class Body2D
 	public Body2D(float x , float y , float width , float height)
 	{
 		this.x = x * hRatio;
-		this.x = y * vRatio - ratioDifference;
+		this.y = y * vRatio - ratioDifference;
 		this.width = width * hRatio;
 		this.height = height * hRatio;
 	}

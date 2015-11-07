@@ -9,7 +9,7 @@ public enum ParticleColor
 {
 	BLUE , GREEN , RED , YELLOW;
 	
-	public Color getColr(ParticleColor c)
+	public static Color getColor(ParticleColor c)
 	{
 		switch(c)
 		{
@@ -24,5 +24,21 @@ public enum ParticleColor
 			default:
 				return Color.BLUE;
 		}
+	}
+	
+	
+	public static int getColorValue(ParticleColor c)
+	{
+		ParticleColor colors[] = ParticleColor.values();
+		for(int i = 0 ; i < colors.length ; ++i)
+			if(c.equals(colors[i]))
+				return i;
+		return 0;
+	}
+	
+	public static ParticleColor getParticleColorForValue(int value)
+	{
+		ParticleColor colors[] = ParticleColor.values();
+		return colors[value];
 	}
 }

@@ -1,5 +1,7 @@
 package com.blackflamegamez.game.staticfields;
 
+import static com.blackflamegamez.game.staticfields.GameStaticValues.defaultHeight;
+
 import com.badlogic.gdx.Gdx;
 import com.blackflamegamez.game.Ratios;
 
@@ -50,4 +52,13 @@ public class GameStaticValues
 		System.out.println("Real width: " + realWidth);
 		System.out.println("Real height: " + realHeight);
 	}
+	
+	/**
+	 * Some constants needed for GameBoard class
+	 */
+	public static float starting_x = 806f;
+	public static float starting_y = defaultHeight - 261f;
+	public static float rect_width = 180f;
+	public static float h_padding  = 12f;
+	public static float v_padding  = 11f;
 }

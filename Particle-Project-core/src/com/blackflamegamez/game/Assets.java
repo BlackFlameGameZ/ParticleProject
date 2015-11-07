@@ -46,6 +46,12 @@ public class Assets
 		manager.load("images/play_screen/single_player_pressed_[617, 800].png", Texture.class);
 		manager.load("images/menu.png", Texture.class);
 		manager.load("images/menu_pressed.png", Texture.class);
+		manager.load("images/particle/base.png" , Texture.class);
+		for(int i = 0 ; i < 5 ; ++i)
+		{
+			manager.load("images/particle/atk_" + (i+1) + ".png" , Texture.class);
+			manager.load("images/particle/def_" + (i+1) + ".png" , Texture.class);
+		}
 	}
 	
 	public static void setFilters()
@@ -76,5 +82,11 @@ public class Assets
 		manager.get("images/play_screen/single_player_pressed_[617, 800].png", Texture.class)	.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/menu.png", Texture.class)											.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/menu_pressed.png", Texture.class)									.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/particle/base.png" , Texture.class)                                 .setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		for(int i = 0 ; i < 5 ; ++i) 
+		{
+			manager.get("images/particle/atk_" + (i+1) + ".png" , Texture.class)                .setFilter(TextureFilter.Linear, TextureFilter.Linear);              
+			manager.get("images/particle/def_" + (i+1) + ".png" , Texture.class)                .setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
 	}
 }
