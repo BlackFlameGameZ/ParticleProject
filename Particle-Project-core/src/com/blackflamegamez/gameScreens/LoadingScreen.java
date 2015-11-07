@@ -62,7 +62,7 @@ public class LoadingScreen extends ScreenAdapter
 		if(Assets.manager.getProgress() == 1)
 		{
 			Assets.setFilters();
-			GameCore.setBackground(Assets.manager.get("images/backgrounds/bg_3.png", Texture.class));
+			GameCore.setBackground(Assets.manager.get("images/backgrounds/bg_4.png", Texture.class));
 			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setSplashScreen();
 		}
 	}

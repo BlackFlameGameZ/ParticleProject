@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 
 /**
  * @author Milan Topalovic
- *
  */
 public enum ParticleColor 
 {

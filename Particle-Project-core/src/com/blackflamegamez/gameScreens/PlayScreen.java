@@ -69,14 +69,14 @@ public class PlayScreen extends ScreenAdapter implements Touchable
 			online.render(batch);
 			back.render(batch);
 		batch.end();
-		/* DEBUGGING*/
+		/* DEBUGGING
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
 			sPlayer.debug(sr);
 			bluetooth.debug(sr);
 			online.debug(sr);
 			back.debug(sr);
-		sr.end();
+		sr.end();*/
 	}
 
 	@Override

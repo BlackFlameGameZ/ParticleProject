@@ -31,6 +31,7 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 	private CustomButton 	pressedButton;
 	private ShapeRenderer 	sr;
 	private Stage 			stage;
+	//Pixmap
 	
 	
 	public MainMenuScreen(SpriteBatch batch) 
@@ -69,13 +70,13 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 			options.render(batch);
 			exit.render(batch);
 		batch.end();
-		/* DEBUGGING*/
+		/* DEBUGGING
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
 			play.debug(sr);
 			options.debug(sr);
 			exit.debug(sr);
-		sr.end();
+		sr.end();*/
 	}
 
 	@Override

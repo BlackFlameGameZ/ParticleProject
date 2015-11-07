@@ -72,12 +72,13 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 			batch.draw(board_grid, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
 			menu.render(batch);
 		batch.end();
+		/* DEBUG
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
 			for(Cell c : cells)
 				c.debug(sr);
 			menu.debug(sr);
-		sr.end();
+		sr.end();*/
 	}
 
 	private void makeCells()
