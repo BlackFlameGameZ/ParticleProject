@@ -2,6 +2,7 @@ package com.blackflamegamez.gameScreens;
 
 import static com.blackflamegamez.game.staticfields.GameStaticValues.background;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.h_padding;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.rect_width;
@@ -20,14 +21,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.blackflamegamez.game.Assets;
+import com.blackflamegamez.game.Cell;
 import com.blackflamegamez.game.GameBoard;
 import com.blackflamegamez.game.GameCore;
 import com.blackflamegamez.game.Player;
 import com.blackflamegamez.game.RectangleButton;
+import com.blackflamegamez.game.enums.ParticleAction;
 import com.blackflamegamez.game.enums.ParticleColor;
 import com.blackflamegamez.game.gameactions.MoveResolution;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
+import com.blackflamegamez.game.uielements.GenericDialog;
+import com.blackflamegamez.game.uielements.MessageDialog;
 
 /**
  * @author Milan Topalovic
@@ -44,6 +49,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	private RectangleButton 	menu;
 	private RectangleButton		pressedButton;
 	private Player              player1 , player2;
+	private GenericDialog       dialog;
 	
 	public ParticleGameScreen(SpriteBatch batch) 
 	{
@@ -76,6 +82,13 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 			batch.draw(board_grid, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
 			menu.render(batch);
 			gameBoard.render(batch, delta);
+			if(dialog != null)
+			{
+				if(dialog.getWindowClosed())
+					dialog = null;
+				else
+					dialog.render(batch, delta);
+			}
 		batch.end();
 		/* DEBUG */
 		sr.setColor(Color.WHITE);
@@ -110,9 +123,18 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		}
 		if(!flag)
 		{
-			MoveResolution mr = player1.touchUp(event, x, y, pointer, button);
-			//here we try to execute command and if it's invalid then we can handle error properly 
-			boolean validMove = gameBoard.resolveCommand(mr);
+			if(dialog != null)
+			{
+				if(dialog.canClose())
+					dialog.closeWindow();
+			} else {
+				MoveResolution mr = player1.touchUp(event, x, y, pointer, button);
+				boolean validMove; 
+				if(mr.getAction() == ParticleAction.CREATE_DIALOG)
+					createDialog(mr , x , y);
+				else
+					validMove = gameBoard.resolveCommand(mr);
+			}
 		}
 		menu.setPressed(false);
 		pressedButton = null;
@@ -122,6 +144,17 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public void touchDragged(InputEvent event, float x, float y, int pointer) 
 	{
 		player1.touchDragged(event, x, y, pointer);
+	}
+	
+	private void createDialog(MoveResolution mr , float x , float y)
+	{
+		Cell c = mr.getTargetCell();
+		int col = c.getCol();
+		int row = c.getRow();
+		float nx = x / hRatio;
+		float ny = (y + ratioDifference) / vRatio;
+		String text = "Cell at:\nCol : " + col + "\n" + "Row : " + row;
+		dialog = new MessageDialog(nx , ny , GenericDialog.DialogDirection.DOWN_RIGHT , text);
 	}
 	
 	@Override
