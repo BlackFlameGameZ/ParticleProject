@@ -31,19 +31,19 @@ public class ActorImage extends Actor
 	{
 		float x = getX();
 		float y = getY();
-		vertices.get(0).set(x * hRatio, y * hRatio);
-		vertices.get(1).set(x * hRatio, y * hRatio + 400 * hRatio);
-		vertices.get(2).set(x * hRatio + 560 * hRatio, y * hRatio + 400 * hRatio);
-		vertices.get(3).set(x * hRatio + 560 * hRatio, y * hRatio);
+		vertices.get(0).set(x, y);
+		vertices.get(1).set(x, y + 400 * hRatio);
+		vertices.get(2).set(x + 560 * hRatio, y + 400 * hRatio);
+		vertices.get(3).set(x + 560 * hRatio, y);
 	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) 
 	{
 		updateRect();
+		batch.draw(texture, getX(), getY(), texture.getWidth() * hRatio, texture.getHeight() * hRatio);
 		if(isSelected)
 			batch.draw(Assets.manager.get("images/backgrounds/thumb_glow.png", Texture.class), getX(), getY(), texture.getWidth() * hRatio, texture.getHeight() * hRatio);
-		batch.draw(texture, getX(), getY(), texture.getWidth() * hRatio, texture.getHeight() * hRatio);
 	}
 	
 	public boolean contains(float x, float y)
@@ -54,5 +54,9 @@ public class ActorImage extends Actor
 	public void setSelected(boolean isSelected) 
 	{
 		this.isSelected = isSelected;
+	}
+	
+	public Texture getTexture() {
+		return texture;
 	}
 }

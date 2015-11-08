@@ -50,6 +50,10 @@ public class Assets
 		manager.load("images/menu.png", Texture.class);
 		manager.load("images/menu_pressed.png", Texture.class);
 		manager.load("images/backgrounds/thumb_glow.png", Texture.class);
+		manager.load("images/options_screen/backgrounds.png", Texture.class);
+		manager.load("images/options_screen/title.png", Texture.class);
+		manager.load("images/options_screen/music.png", Texture.class);
+		manager.load("images/options_screen/sound.png", Texture.class);
 	}
 	
 	public static void setFilters()
@@ -91,5 +95,9 @@ public class Assets
 		manager.get("images/menu.png", Texture.class)											.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/menu_pressed.png", Texture.class)									.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/backgrounds/thumb_glow.png", Texture.class)							.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/options_screen/backgrounds.png", Texture.class)						.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/options_screen/title.png", Texture.class)							.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/options_screen/music.png", Texture.class)							.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/options_screen/sound.png", Texture.class)							.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 }
