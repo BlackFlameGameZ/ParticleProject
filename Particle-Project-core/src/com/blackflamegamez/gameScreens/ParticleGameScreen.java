@@ -101,7 +101,8 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		if(!flag)
 		{
 			MoveResolution mr = player1.touchUp(event, x, y, pointer, button);
-			gameBoard.resolveCommand(mr);
+			//here we try to execute command and if it's invalid then we can handle error properly 
+			boolean validMove = gameBoard.resolveCommand(mr);
 		}
 		menu.setPressed(false);
 		pressedButton = null;

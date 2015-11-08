@@ -47,6 +47,24 @@ public class Cell extends Body2D
 		particle = new Particle(p , x1, y1, 240f, defense, attack);
 	}
 	
+	/**
+	 * Upgrade cells particle
+	 * @param atk value to add
+	 * @param def value to add
+	 * @return if this move was valid
+	 */
+	public void upgradeParticle(int atk , int def)
+	{
+		particle.addAttack(atk);
+		particle.addDefense(def);
+	}
+	
+	public void downgradeParticle(int atk , int def)
+	{
+		particle.remAttack(atk);
+		particle.remDefense(def);
+	}
+	
 	public boolean contains(float x , float y)
 	{
 		return hexagon.contains(x , y);

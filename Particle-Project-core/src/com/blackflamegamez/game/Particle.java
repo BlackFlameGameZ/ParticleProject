@@ -60,7 +60,7 @@ public class Particle extends Body2D
 	{
 		if(toAdd <= 0)
 			return;
-		atkLvl = min(6 , atkLvl + toAdd);
+		atkLvl = min(5 , atkLvl + toAdd);
 		calculate();
 	}
 	/**
@@ -75,7 +75,7 @@ public class Particle extends Body2D
 		calculate();
 	}
 	
-	public void addDeffense(int toAdd)
+	public void addDefense(int toAdd)
 	{
 		if(toAdd <= 0)
 			return;
@@ -87,12 +87,22 @@ public class Particle extends Body2D
 	 * Removes some value from defense
 	 * @param toRem value to subtract from , must be greater than zero
 	 */
-	public void remDeffense(int toRem)
+	public void remDefense(int toRem)
 	{
 		if(toRem <= 0)
 			return;
 		defLvl = max(0 , defLvl - toRem);
 		calculate();
+	}
+	
+	public int getAttackLvl()
+	{
+		return atkLvl;
+	}
+	
+	public int getDefenseLvl()
+	{
+		return defLvl;
 	}
 	
 	public int getAttack() 
@@ -103,5 +113,10 @@ public class Particle extends Body2D
 	public int getDefense() 
 	{
 		return defense;
+	}
+	
+	public Player getCellOwner()
+	{
+		return player;
 	}
 }

@@ -75,21 +75,42 @@ public class GameBoard extends GenericBoard {
 		return null;
 	}
 	
-	public void resolveCommand(MoveResolution move)
+	public boolean resolveCommand(MoveResolution move)
 	{
 		if(move.getAction() == ParticleAction.INVALID_MOVE)
-			return;
+			return false;
 		if(move.getAction() == ParticleAction.CREATE_CELL)
-			createCell(move);
+			return createCell(move);
+		if(move.getAction() == ParticleAction.UPGRADE)
+			return upgradeCell(move);
+		else
+			return false;
 	}
 	
-	private void createCell(MoveResolution move)
+	private boolean createCell(MoveResolution move)
 	{
 		Player p = move.getPlayer();
 		Cell targetCell = move.getTargetCell();
 		int attack = move.getAttack();
 		int defense = move.getDefense();
 		targetCell.createParticle(p , attack , defense);
+		return true;
 	}
-
+	
+	private boolean upgradeCell(MoveResolution move)
+	{
+		Player p = move.getPlayer();
+		Cell targetCell = move.getTargetCell();
+		if(targetCell.getParticle() == null)
+			return false;
+		if(targetCell.getParticle().getCellOwner() != p)
+			return false;
+		int tatk = targetCell.getParticle().getAttackLvl();
+		int tdef = targetCell.getParticle().getDefenseLvl();
+		if(tatk + move.getAttack() > 5 || tdef + move.getDefense() > 5)
+			return false;
+		targetCell.upgradeParticle(move.getAttack(), move.getDefense());
+		return true;
+	}
+	
 }
