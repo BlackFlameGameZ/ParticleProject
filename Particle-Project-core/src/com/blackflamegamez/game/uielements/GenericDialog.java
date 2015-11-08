@@ -1,22 +1,14 @@
 package com.blackflamegamez.game.uielements;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
-
-import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Float;
-
-import javafx.geometry.Bounds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.utils.Array;
 import com.blackflamegamez.game.geometry.Body2D;
+import com.sun.javafx.geom.Rectangle;
 
 /**Generic class for rendering Dialog on game screen
  * 
@@ -68,10 +60,15 @@ public abstract class GenericDialog extends Body2D
 				drawOpening(sb);
 			else if(isClosing)
 				drawClosing(sb);
-			else if(canRender)
-				backgroundBox.draw(sb, x, y - height, width, height);
-		} else
-			backgroundBox.draw(sb, x, y - height, width, height);
+			else if(canRender) 
+			{
+				Rectangle2D.Float bound = calculateCoordinates(x , y , width , height);
+				backgroundBox.draw(sb, bound.x , bound.y , bound.width , bound.height);
+			}
+		} else {
+			Rectangle2D.Float bound = calculateCoordinates(x , y , width , height);
+			backgroundBox.draw(sb, bound.x , bound.y , bound.width , bound.height);
+		}
 	}
 	
 	private void drawOpening(SpriteBatch sb)
@@ -81,7 +78,8 @@ public abstract class GenericDialog extends Body2D
 			float factor = Interpolation.pow4.apply(elapsedTime / animationDuration);
 			float tmpwidth = minWidth + factor * (width - minWidth);
 			float tmpheight = minHeight + factor * (height - minHeight);
-			backgroundBox.draw(sb, x, y - tmpheight, tmpwidth , tmpheight);
+			Rectangle2D.Float bound = calculateCoordinates(x , y , tmpwidth , tmpheight);
+			backgroundBox.draw(sb, bound.x , bound.y , bound.width , bound.height);
 		} else {
 			canRender = true;
 			isOpening = false;
@@ -95,7 +93,8 @@ public abstract class GenericDialog extends Body2D
 			float factor = Interpolation.pow4.apply(elapsedTime / animationDuration);
 			float tmpwidth = width - factor * (width - minWidth);
 			float tmpheight= height - factor * (height - minHeight);
-			backgroundBox.draw(sb, x, y - tmpheight , tmpwidth, tmpheight);
+			Rectangle2D.Float bound = calculateCoordinates(x , y , tmpwidth , tmpheight);
+			backgroundBox.draw(sb, bound.x , bound.y , bound.width , bound.height);
 		} else 
 			windowClosed = true;
 	}
@@ -112,30 +111,30 @@ public abstract class GenericDialog extends Body2D
 	 *  
 	 * @return {@link Rectangle2D.Float} dialog frame
 	 */
-	private Rectangle2D.Float getImagePoints()
+	private Rectangle2D.Float getImagePoints(float x , float y , float w , float h)
 	{
 		Rectangle2D.Float tmp = new Rectangle2D.Float();
-		float newx = x , newy = y;
 		switch(direction)
 		{
-		case DOWN_LEFT:
-			newx = x - width;
-			newy = y;
-			break;
 		case DOWN_RIGHT:
-			newx = x;
-			newy = y;
+			tmp.x = x;
+			tmp.y = y - h;
 			break;
-		case UP_LEFT:
-			newx = x - width;
-			newy = y + height;
+		case DOWN_LEFT:
+			tmp.x = x - w;
+			tmp.y = y - h;
 			break;
 		case UP_RIGHT:
-			newx = x;
-			newy = y + height;
+			tmp.x = x - w;
+			tmp.y = y;
+			break;
+		case UP_LEFT:
+			tmp.x = x;
+			tmp.y = y;
 			break;
 		}
-		tmp.setRect(newx, newy, width, height);
+		tmp.width = w;
+		tmp.height = h;
 		return tmp;
 	}
 	
@@ -147,10 +146,10 @@ public abstract class GenericDialog extends Body2D
 	/**
 	 * Sets coordinates of dialog
 	 */
-	protected void calculateCoordinates()
+	protected Rectangle2D.Float calculateCoordinates(float x , float y , float width , float height)
 	{
-		Rectangle2D.Float bounds = getImagePoints();
-		setWorldCoordinates(bounds.x , bounds.y , bounds.width , bounds.height);
+		Rectangle2D.Float bounds = getImagePoints(x , y , width , height);
+		return bounds;
 	}
 	
 	public boolean canClose()

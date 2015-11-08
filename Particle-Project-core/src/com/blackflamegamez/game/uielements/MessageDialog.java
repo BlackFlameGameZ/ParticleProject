@@ -1,5 +1,7 @@
 package com.blackflamegamez.game.uielements;
 
+import java.awt.geom.Rectangle2D;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -22,7 +24,8 @@ public class MessageDialog extends GenericDialog {
 	@Override
 	public void drawDialogElements(SpriteBatch sb, float delta) 
 	{
-		bmf.draw(sb, glyph , x + 10f , y - 10f);
+		Rectangle2D.Float bounds = calculateCoordinates(x , y , width , height);
+		bmf.draw(sb, glyph , bounds.x + 10f , bounds.y + height - 10f);
 	}
 	
 	private void setText()
