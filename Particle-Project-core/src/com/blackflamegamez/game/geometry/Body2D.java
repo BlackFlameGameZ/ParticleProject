@@ -1,10 +1,12 @@
 package com.blackflamegamez.game.geometry;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
 
+import com.blackflamegamez.game.uielements.GenericDialog;
 
-/**
+
+/**Purpose of this class is to contain coordinates of object's which are rendered on the screen
  * @author Milan Topalovic
- * Purpose of this class is to contain coordinates of object's which are rendered on the screen 
+ * 
  */
 public class Body2D 
 {
@@ -20,6 +22,14 @@ public class Body2D
 		this.y = y * vRatio - ratioDifference;
 		this.width = width * hRatio;
 		this.height = height * hRatio;
+	}
+	
+	public void setWorldCoordinates(float nx , float ny , float nw , float nh)
+	{
+		x = nx;
+		y = ny;
+		width = nw;
+		height = nh;
 	}
 	
 	public float getX()
