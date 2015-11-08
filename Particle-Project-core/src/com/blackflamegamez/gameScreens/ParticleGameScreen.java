@@ -1,13 +1,22 @@
 package com.blackflamegamez.gameScreens;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.background;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.h_padding;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.rect_width;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.starting_x;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.starting_y;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.v_padding;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.blackflamegamez.game.Assets;
@@ -52,6 +61,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	@Override
 	public void show() 
 	{
+		reset();
 		pressedButton = null;
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -67,11 +77,11 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 			menu.render(batch);
 			gameBoard.render(batch, delta);
 		batch.end();
-		/* DEBUG
+		/* DEBUG */
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
 			gameBoard.debug(sr);
-		sr.end();*/
+		sr.end();
 	}
 	
 	@Override
@@ -123,5 +133,12 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public void hide()
 	{
 		
+	}
+	
+	/* probna metoda */
+	public void reset()
+	{
+		gameBoard.resetBoard();
+		player1.reset();
 	}
 }

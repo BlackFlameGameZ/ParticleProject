@@ -38,7 +38,7 @@ public class Player
 	public MoveResolution touchUp(InputEvent event ,float x , float y , int pointer , int button)
 	{		
 		Cell nc = board.getCellForCoordinates(x , y);
-		if(!cellInstantiated && nc != null && !dragging)
+		if(!cellInstantiated && nc != null)
 			if(nc.getParticle() == null)
 			{
 				cellInstantiated = true;
@@ -65,6 +65,12 @@ public class Player
 	public ParticleColor getColor()
 	{
 		return color;
+	}
+	
+	/* probna metoda */
+	public void reset()
+	{
+		cellInstantiated = false;
 	}
 	
 }

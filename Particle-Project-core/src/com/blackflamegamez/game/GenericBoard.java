@@ -42,4 +42,11 @@ public abstract class GenericBoard
 		return board;
 	}
 	
+	/* probna metoda */
+	public void resetBoard()
+	{
+		for(Cell c : board)
+			c.resetCell();
+	}
+	
 }

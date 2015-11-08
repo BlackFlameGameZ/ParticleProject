@@ -127,4 +127,10 @@ public class Cell extends Body2D
 	{
 		hexagon.debug(sr);
 	}
+	
+	/* PROBNA METODA !!! */
+	public void resetCell()
+	{
+		particle = null;
+	}
 }

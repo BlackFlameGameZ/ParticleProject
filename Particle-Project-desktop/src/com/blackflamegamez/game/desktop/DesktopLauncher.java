@@ -10,10 +10,10 @@ public class DesktopLauncher
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		System.out.println("Before LwjglApplication");
-		config.width 	= 1280;//LwjglApplicationConfiguration.getDesktopDisplayMode().width;
-		config.height 	= 800;//LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+		config.width 	= LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+		config.height 	= LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 		config.resizable= false;
-		//config.fullscreen = true;
+		config.fullscreen = true;
 		new LwjglApplication(new GameCore(), config);
 		System.out.println("After LwjglApplication");
 	}

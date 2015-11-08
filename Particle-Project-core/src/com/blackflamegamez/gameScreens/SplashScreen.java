@@ -58,12 +58,15 @@ public class SplashScreen extends ScreenAdapter
 			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setMainMenuScreen();
 		
 		batch.begin();
-			batch.setColor(batchColor.r, batchColor.g, batchColor.b, alpha);
-			batch.draw(splashSprite.getFrame(elapsedTime), 967 * hRatio, 620 * vRatio - ratioDifference, 625 * hRatio, 493 * hRatio);
-			batch.setColor(batchColor);
+			if(alpha > 0)
+			{
+				batch.setColor(batchColor.r, batchColor.g, batchColor.b, alpha);
+				batch.draw(splashSprite.getFrame(elapsedTime), 967 * hRatio, 620 * vRatio - ratioDifference, 625 * hRatio, 493 * hRatio);
+				batch.setColor(batchColor);
+			}
 		batch.end();
 		
-		if(mode == 0 && alpha > 1)
+		if(mode == 0 && alpha >= 59f/60f)
 		{
 			alpha = 1;
 			mode++;
