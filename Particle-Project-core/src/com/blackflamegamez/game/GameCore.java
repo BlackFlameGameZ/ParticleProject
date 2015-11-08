@@ -10,7 +10,6 @@ public class GameCore extends Game
 	private SpriteBatch batch;
 	
 	private GameManager gameManager;
-	private static Texture background;
 	
 	@Override
 	public void create() 
@@ -25,16 +24,6 @@ public class GameCore extends Game
 	public GameManager getGameManager()
 	{
 		return gameManager;
-	}
-	
-	public static void setBackground(Texture background) 
-	{
-		GameCore.background = background;
-	}
-	
-	public static Texture getBackground()
-	{
-		return background;
 	}
 	
 	@Override

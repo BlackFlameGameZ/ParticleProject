@@ -1,8 +1,9 @@
 package com.blackflamegamez.game.staticfields;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.defaultHeight;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.Ratios;
 
 public class GameStaticValues 
@@ -17,9 +18,11 @@ public class GameStaticValues
 	public static float hRatio;
 	public static float ratioDifference;
 	
+	public static Texture 	background;
+	public static Skin 		skin;
+	
 	public static void calculate()
 	{
-
 		realWidth 	= Gdx.graphics.getWidth();
 		realHeight 	= Gdx.graphics.getHeight();
 		float tmpRatio = realWidth / realHeight;
@@ -51,6 +54,12 @@ public class GameStaticValues
 		System.out.println("Ratio difference: " + ratioDifference);
 		System.out.println("Real width: " + realWidth);
 		System.out.println("Real height: " + realHeight);
+	}
+	
+	public static void loadBackground()
+	{
+		background 	= Assets.manager.get("images/backgrounds/bg_2.png", Texture.class);
+		skin 		= Assets.manager.get("files/uiskin.json", Skin.class);
 	}
 	
 	/**

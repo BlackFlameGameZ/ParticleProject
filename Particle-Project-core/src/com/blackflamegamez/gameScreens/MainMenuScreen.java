@@ -1,5 +1,6 @@
 package com.blackflamegamez.gameScreens;
 
+import static com.blackflamegamez.game.staticfields.GameStaticValues.background;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
@@ -17,14 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.CustomButton;
 import com.blackflamegamez.game.GameCore;
-import com.blackflamegamez.game.RectangleButton;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
 
 public class MainMenuScreen extends ScreenAdapter implements Touchable
 {
 	private SpriteBatch 	batch;
-	private Texture 		background;
 	private CustomButton 	play;
 	private CustomButton 	options;
 	private CustomButton 	exit;
@@ -37,7 +36,6 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 	public MainMenuScreen(SpriteBatch batch) 
 	{
 		this.batch 	= batch;
-		background 	= GameCore.getBackground();
 		play 		= new CustomButton(Assets.manager.get("images/mm_screen/play_[975, 800].png", Texture.class), Assets.manager.get("images/mm_screen/play_pressed_[975, 800].png", Texture.class), 975, 800);
 		options 	= new CustomButton(Assets.manager.get("images/mm_screen/options_[975, 601].png", Texture.class), Assets.manager.get("images/mm_screen/options_pressed_[975, 601].png", Texture.class), 975, 601);
 		exit 		= new CustomButton(Assets.manager.get("images/mm_screen/exit_[975, 402].png", Texture.class), Assets.manager.get("images/mm_screen/exit_pressed_[975, 402].png", Texture.class), 975, 402);
@@ -45,7 +43,7 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 		stage 		= new Stage();
 		
 		stage.addListener(new CustomInputListener(this));
-		options.setDisabled(true);
+		//options.setDisabled(true);
 	}
 	
 	@Override
@@ -70,13 +68,13 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 			options.render(batch);
 			exit.render(batch);
 		batch.end();
-		/* DEBUGGING
+		 /*DEBUGGING*/
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
 			play.debug(sr);
 			options.debug(sr);
 			exit.debug(sr);
-		sr.end();*/
+		sr.end();
 	}
 
 	@Override
@@ -86,6 +84,11 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 		{
 			play.setPressed(true);
 			pressedButton = play;
+		}
+		else if(options.contains(x, y))
+		{
+			options.setPressed(true);
+			pressedButton = options;
 		}
 		else if(exit.contains(x, y))
 		{
@@ -102,7 +105,9 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 		{
 			if(pressedButton.equals(play))
 				((GameCore)Gdx.app.getApplicationListener()).getGameManager().setPlayScreen();
-			if(pressedButton.equals(exit))
+			else if(pressedButton.equals(options))
+				((GameCore)Gdx.app.getApplicationListener()).getGameManager().setOptionsScreen();
+			else if(pressedButton.equals(exit))
 			{
 				((GameCore)Gdx.app.getApplicationListener()).dispose();
 				System.exit(0);

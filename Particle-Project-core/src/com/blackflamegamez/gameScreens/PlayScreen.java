@@ -22,7 +22,6 @@ import com.blackflamegamez.game.input.Touchable;
 public class PlayScreen extends ScreenAdapter implements Touchable
 {
 	private SpriteBatch 	batch;
-	private Texture 		background;
 	private CustomButton 	sPlayer;
 	private CustomButton 	bluetooth;
 	private CustomButton 	online;
@@ -34,7 +33,6 @@ public class PlayScreen extends ScreenAdapter implements Touchable
 	public PlayScreen(SpriteBatch batch) 
 	{
 		this.batch 	= batch;
-		background 	= GameCore.getBackground();
 		sPlayer 	= new CustomButton(Assets.manager.get("images/play_screen/single_player_[617, 800].png", Texture.class), Assets.manager.get("images/play_screen/single_player_pressed_[617, 800].png", Texture.class), 617, 800);
 		bluetooth 	= new CustomButton(Assets.manager.get("images/play_screen/bluetooth_[617, 999].png", Texture.class), Assets.manager.get("images/play_screen/bluetooth_pressed_[617, 999].png", Texture.class), 617, 601);
 		online 		= new CustomButton(Assets.manager.get("images/play_screen/online_[1332, 800].png", Texture.class), Assets.manager.get("images/play_screen/online_pressed_[1332, 800].png", Texture.class), 1332, 800);

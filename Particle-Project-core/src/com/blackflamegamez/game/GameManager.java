@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.blackflamegamez.gameScreens.LoadingScreen;
 import com.blackflamegamez.gameScreens.MainMenuScreen;
+import com.blackflamegamez.gameScreens.OptionsScreen;
 import com.blackflamegamez.gameScreens.ParticleGameScreen;
 import com.blackflamegamez.gameScreens.PlayScreen;
 import com.blackflamegamez.gameScreens.SplashScreen;
@@ -21,6 +22,7 @@ public class GameManager
 	private Screen		mmScreen;
 	private Screen		gameScreen;
 	private Screen		playScreen;
+	private Screen 		optionsScreen;
 	private Screen      currentScreen;
 	private GameCore    game;
 	
@@ -33,6 +35,7 @@ public class GameManager
 		mmScreen 		= null;
 		gameScreen 		= null;
 		playScreen		= null;
+		optionsScreen	= null;
 		
 		this.currentScreen = game.getScreen();
 	}
@@ -84,6 +87,14 @@ public class GameManager
 		if(playScreen == null)
 			playScreen = new PlayScreen(batch);
 		currentScreen = playScreen;
+		game.setScreen(currentScreen);
+	}
+	
+	public void setOptionsScreen() 
+	{
+		if(optionsScreen == null)
+			optionsScreen = new OptionsScreen(batch);
+		currentScreen = optionsScreen;
 		game.setScreen(currentScreen);
 	}
 }

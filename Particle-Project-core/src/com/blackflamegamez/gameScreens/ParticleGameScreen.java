@@ -1,13 +1,6 @@
 package com.blackflamegamez.gameScreens;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.h_padding;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.rect_width;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.starting_x;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.starting_y;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.v_padding;
-
+import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -34,7 +27,6 @@ import com.blackflamegamez.game.input.Touchable;
 public class ParticleGameScreen extends ScreenAdapter implements Touchable
 {
 	private SpriteBatch 		batch;
-	private Texture 			board;
 	private Texture 			board_grid;
 	private GameBoard           gameBoard;
 	private Stage          		stage;
@@ -54,7 +46,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		player1     = new Player(ParticleColor.BLUE , gameBoard);
 		menu 		= new RectangleButton(Assets.manager.get("images/menu.png", Texture.class), Assets.manager.get("images/menu_pressed.png", Texture.class), 0, 1472, 318, 100);
 		stage.addListener(listener);
-		loadAssets();
+		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
 	}
 	
 	@Override
@@ -70,7 +62,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-			batch.draw(board, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
+			batch.draw(background, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
 			batch.draw(board_grid, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
 			menu.render(batch);
 			gameBoard.render(batch, delta);
@@ -119,14 +111,6 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public void touchDragged(InputEvent event, float x, float y, int pointer) 
 	{
 		player1.touchDragged(event, x, y, pointer);
-	}
-	
-	private void loadAssets()
-	{
-		board		= GameCore.getBackground();
-		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
-		board.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		board_grid.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 	
 	@Override
