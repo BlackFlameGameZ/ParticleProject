@@ -30,8 +30,8 @@ public class Particle extends Body2D
 		attack 	= 0;
 		defense = 0;
 		player   = p;
-		shieldColor = ParticleColor.getColor(player.getColor());
-		bulletColor = ParticleColor.getColor(player.getColor());
+		shieldColor = ParticleColor.getColor(player.getShieldColor());
+		bulletColor = ParticleColor.getColor(player.getAttackColor());
 		drawBase = true;
 		calculate();
 	}
@@ -39,8 +39,8 @@ public class Particle extends Body2D
 	public void render(SpriteBatch batch , float delta)
 	{
 		Color bc = batch.getColor();
-		batch.setColor(Color.BLACK);
-		batch.draw(Assets.manager.get("images/particle/base.png" , Texture.class) , x , y , width , height);
+		if(drawBase)
+			batch.draw(Assets.manager.get("images/particle/base.png" , Texture.class) , x , y , width , height);
 		batch.setColor(bulletColor);
 		if(attack != 0)
 			batch.draw(Assets.manager.get("images/particle/atk_" + atkLvl + ".png" , Texture.class) , x , y , width , height);

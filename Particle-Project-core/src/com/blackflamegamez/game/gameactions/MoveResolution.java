@@ -102,7 +102,7 @@ public class MoveResolution
 				sb.append(startingCell.getRow() + " " + startingCell.getCol() + " " + targetCell.getRow() + " " + targetCell.getCol());
 				break;
 			case CREATE_CELL:
-				sb.append(ParticleColor.getColorValue(player.getColor()) + " " + targetCell.getRow() + " " + targetCell.getCol() + " " + attack + " " + defense);
+				sb.append(ParticleColor.getColorValue(player.getShieldColor()) + " " + targetCell.getRow() + " " + targetCell.getCol() + " " + attack + " " + defense);
 				break;
 			case REMOVE_ATK_DEF:
 				sb.append(targetCell.getRow() + " " + targetCell.getCol() + attack + " " + defense);

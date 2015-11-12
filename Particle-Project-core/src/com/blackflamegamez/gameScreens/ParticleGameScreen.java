@@ -1,14 +1,6 @@
 package com.blackflamegamez.gameScreens;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.background;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.h_padding;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.rect_width;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.starting_x;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.starting_y;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.v_padding;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -58,7 +50,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		listener    = new CustomInputListener(this);
 		sr			= new ShapeRenderer();
 		gameBoard   = new GameBoard(starting_x , starting_y , rect_width ,h_padding , v_padding );
-		player1     = new Player(ParticleColor.BLUE , gameBoard);
+		player1     = new Player(ParticleColor.GREEN, ParticleColor.RED , gameBoard);
 		menu 		= new RectangleButton(Assets.manager.get("images/menu.png", Texture.class), Assets.manager.get("images/menu_pressed.png", Texture.class), 0, 1472, 318, 100);
 		stage.addListener(listener);
 		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);

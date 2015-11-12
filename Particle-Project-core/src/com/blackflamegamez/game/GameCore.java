@@ -16,6 +16,7 @@ public class GameCore extends Game
 	{
 		GameStaticValues.calculate();
 		batch = new SpriteBatch();
+		GameStaticValues.setBatchColor(batch.getColor());
 		gameManager = new GameManager(this , batch);
 		Assets.load();
 		gameManager.setLoadingScreen();

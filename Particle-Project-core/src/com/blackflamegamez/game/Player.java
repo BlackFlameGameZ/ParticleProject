@@ -16,14 +16,16 @@ public class Player
 {
 	
 	private GameBoard       board;
-	private ParticleColor   color;
+	private ParticleColor   shieldColor;
+	private ParticleColor   attackColor;
 	private Cell            previousCell;
 	private boolean         dragging;
 	private PlayerState     state;
 	
-	public Player(ParticleColor color , GameBoard board)
+	public Player(ParticleColor shieldColor, ParticleColor attackColor , GameBoard board)
 	{
-		this.color = color;
+		this.shieldColor = shieldColor;
+		this.attackColor = attackColor;
 		this.board = board;
 		this.state = PlayerState.INSTANTIATING;
 		resetState();
@@ -73,9 +75,14 @@ public class Player
 		dragging = false;
 	}
 	
-	public ParticleColor getColor()
+	public ParticleColor getShieldColor()
 	{
-		return color;
+		return shieldColor;
+	}
+	
+	public ParticleColor getAttackColor()
+	{
+		return attackColor;
 	}
 	
 	public void setState(PlayerState s)

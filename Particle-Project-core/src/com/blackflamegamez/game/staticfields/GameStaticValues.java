@@ -1,6 +1,7 @@
 package com.blackflamegamez.game.staticfields;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.blackflamegamez.game.Assets;
@@ -20,6 +21,7 @@ public class GameStaticValues
 	
 	public static Texture 	background;
 	public static Skin 		skin;
+	public static Color 	originalColor;
 	
 	public static void calculate()
 	{
@@ -60,6 +62,11 @@ public class GameStaticValues
 	{
 		background 	= Assets.manager.get("images/backgrounds/bg_2.png", Texture.class);
 		skin 		= Assets.manager.get("files/uiskin.json", Skin.class);
+	}
+	
+	public static void setBatchColor(Color c)
+	{
+		originalColor = c;
 	}
 	
 	/**
