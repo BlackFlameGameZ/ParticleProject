@@ -54,6 +54,12 @@ public class Assets
 		manager.load("images/options_screen/title.png", Texture.class);
 		manager.load("images/options_screen/music.png", Texture.class);
 		manager.load("images/options_screen/sound.png", Texture.class);
+		manager.load("images/left_upgrade_box.png", Texture.class);
+		manager.load("images/atk_upgrade.png", Texture.class);
+		manager.load("images/def_upgrade.png", Texture.class);
+		manager.load("images/attack.png", Texture.class);
+		manager.load("images/split.png", Texture.class);
+		manager.load("images/green_highlight.png", Texture.class);
 	}
 	
 	public static void setFilters()
@@ -99,5 +105,11 @@ public class Assets
 		manager.get("images/options_screen/title.png", Texture.class)							.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/options_screen/music.png", Texture.class)							.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/options_screen/sound.png", Texture.class)							.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/left_upgrade_box.png", Texture.class)								.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/atk_upgrade.png", Texture.class)									.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/def_upgrade.png", Texture.class)									.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/attack.png", Texture.class)											.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/split.png", Texture.class)											.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/green_highlight.png", Texture.class)											.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 }

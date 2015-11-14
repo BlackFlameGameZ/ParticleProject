@@ -14,6 +14,16 @@ public class Hexagon
 	
 	public Hexagon(float x1 , float y1 , float rectWidth)
 	{
+		setNormal(x1, y1, rectWidth);
+	}
+	
+	public Hexagon(float x1 , float y1 , float x2 , float y2 , float rectWidth)
+	{
+		setRotated(x1, y1, x2, y2, rectWidth);
+	}
+	
+	public void setNormal(float x1 , float y1 , float rectWidth)
+	{
 		float newWidth = rectWidth * hRatio;
 		x1 *= hRatio;
 		y1 = y1 * vRatio - ratioDifference;
@@ -21,7 +31,7 @@ public class Hexagon
 		calculateVertices(arr);
 	}
 	
-	public Hexagon(float x1 , float y1 , float x2 , float y2 , float rectWidth)
+	public void setRotated(float x1 , float y1 , float x2 , float y2 , float rectWidth)
 	{
 		float newWidth = rectWidth * hRatio;
 		x1 *= hRatio;

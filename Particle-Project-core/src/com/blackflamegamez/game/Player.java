@@ -35,7 +35,7 @@ public class Player
 			int button) 
 	{
 		previousCell = board.getCellForCoordinates(x , y);
-		return true;
+		return previousCell != null;
 	}
 	
 	public MoveResolution touchUp(InputEvent event ,float x , float y , int pointer , int button)

@@ -26,10 +26,12 @@ public class Shield
 	
 	public void render(SpriteBatch batch, float x, float y)
 	{
-		if(shieldLevel > 0)
-		{
-			batch.setColor(color);
-		}
+		
+	}
+	
+	public void renderSkeleton(SpriteBatch batch, float x, float y)
+	{
+		
 	}
 	
 	// THIS IS NEEEDED IF U WANT THIS CLASS TO WORK PROPERLY !!!

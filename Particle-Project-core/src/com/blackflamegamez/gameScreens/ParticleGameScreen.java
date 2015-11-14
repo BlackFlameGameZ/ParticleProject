@@ -18,6 +18,7 @@ import com.blackflamegamez.game.GameBoard;
 import com.blackflamegamez.game.GameCore;
 import com.blackflamegamez.game.Player;
 import com.blackflamegamez.game.RectangleButton;
+import com.blackflamegamez.game.UpgradeBox;
 import com.blackflamegamez.game.enums.ParticleAction;
 import com.blackflamegamez.game.enums.ParticleColor;
 import com.blackflamegamez.game.gameactions.MoveResolution;
@@ -42,6 +43,11 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	private RectangleButton		pressedButton;
 	private Player              player1 , player2;
 	private GenericDialog       dialog;
+	private UpgradeBox 			upgradeBox;
+	
+	private float 				startingX;
+	private float 				startingXSpeed;
+	private float 				dragSpeed;
 	
 	public ParticleGameScreen(SpriteBatch batch) 
 	{
@@ -54,6 +60,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		menu 		= new RectangleButton(Assets.manager.get("images/menu.png", Texture.class), Assets.manager.get("images/menu_pressed.png", Texture.class), 0, 1472, 318, 100);
 		stage.addListener(listener);
 		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
+		upgradeBox = new UpgradeBox(0, 448);
 	}
 	
 	@Override
@@ -81,12 +88,14 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 				else
 					dialog.render(batch, delta);
 			}
+			upgradeBox.render(batch, delta);
 		batch.end();
-		/* DEBUG */
+		/* DEBUG 
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
 			gameBoard.debug(sr);
-		sr.end();
+			upgradeBox.debug(sr);
+		sr.end();*/
 	}
 	
 	@Override
@@ -98,6 +107,10 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 			pressedButton = menu;
 		} 
 		player1.touchDown(event, x, y, pointer, button);
+		upgradeBox.touchDown(x, y);
+		startingX 		= x;
+		startingXSpeed 	= x;
+		dragSpeed 		= 0;
 		return true;
 	}
 
@@ -105,6 +118,9 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) 
 	{
 		boolean flag = false;
+		
+		upgradeBox.touchUp(x, y);
+		
 		if(pressedButton != null && pressedButton.contains(x, y))
 		{
 			if(pressedButton.equals(menu))
@@ -113,6 +129,11 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 				flag = true;
 			}
 		}
+		if(dragSpeed > 50 * hRatio)
+			upgradeBox.open();
+		else if(dragSpeed < -50 * hRatio)
+			upgradeBox.close();
+		/*
 		if(!flag)
 		{
 			if(dialog != null)
@@ -127,7 +148,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 				else
 					validMove = gameBoard.resolveCommand(mr);
 			}
-		}
+		}*/
 		menu.setPressed(false);
 		pressedButton = null;
 	}
@@ -136,6 +157,11 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public void touchDragged(InputEvent event, float x, float y, int pointer) 
 	{
 		player1.touchDragged(event, x, y, pointer);
+		
+		if(Math.abs(x - startingXSpeed) > Math.abs(dragSpeed))
+			dragSpeed = x - startingXSpeed;
+		startingXSpeed = x;
+		System.out.println("DragSpped: " + dragSpeed);
 	}
 	
 	private void createDialog(MoveResolution mr , float x , float y)

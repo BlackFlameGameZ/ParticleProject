@@ -1,6 +1,6 @@
 package com.blackflamegamez.game;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AttackParticles 
 {
@@ -13,6 +13,16 @@ public class AttackParticles
 		shield 				= null;
 		attackLevel 		= 0;
 		attackParticlePower = 0;
+	}
+	
+	public void render(SpriteBatch batch, float x, float y)
+	{
+		
+	}
+	
+	public void renderSkeleton(SpriteBatch batch, float x, float y)
+	{
+		
 	}
 	
 	public int getAttackLevel() 

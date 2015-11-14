@@ -1,26 +1,29 @@
 package com.blackflamegamez.gameScreens;
 
+import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
+import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Align;
 import com.blackflamegamez.game.AnimatedSprite;
 import com.blackflamegamez.game.Assets;
 import com.blackflamegamez.game.GameCore;
 import com.blackflamegamez.game.staticfields.GameStaticValues;
 
-import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
-
 public class LoadingScreen extends ScreenAdapter
 {
 	private SpriteBatch 	batch;
 	private AnimatedSprite 	loadingSprite;
 	private Label 			label;
-	private Skin			skin;
 	private float			elapsedTime;
 	private final float 	loadStep = 1f/81f;
 	private	Label 			resolutionLabel;
@@ -29,14 +32,20 @@ public class LoadingScreen extends ScreenAdapter
 	{
 		this.batch 		= batch;
 		loadingSprite 	= new AnimatedSprite("images/loading_#[358,306].png", 358, 306, false);
-		skin			= new Skin(Gdx.files.internal("files/uiskin.json"));
-		label			= new Label("0%", skin, "loading");
-		resolutionLabel = new Label((int)GameStaticValues.realWidth + "x" + (int)GameStaticValues.realHeight, skin, "loading");
-		resolutionLabel.setPosition(20, 20);
+		BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/loading_font.fnt"));
+		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		label			= new Label("0%", new LabelStyle(font, Color.WHITE));
+		resolutionLabel = new Label((int)GameStaticValues.realWidth + "x" + (int)GameStaticValues.realHeight, new LabelStyle(font, Color.WHITE));
+		resolutionLabel.setPosition(20 * hRatio, 0);
+		
+		resolutionLabel.setFontScale(hRatio);
+		
+		
 		
 		label.setSize(GameStaticValues.realWidth, 30);
 		label.setPosition(6 * hRatio, 608 * vRatio - ratioDifference);
 		label.setAlignment(Align.center);
+		label.setFontScale(hRatio);
 	}
 	
 	@Override
