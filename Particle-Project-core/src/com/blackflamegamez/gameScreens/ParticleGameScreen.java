@@ -119,8 +119,6 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	{
 		boolean flag = false;
 		
-		upgradeBox.touchUp(x, y);
-		
 		if(pressedButton != null && pressedButton.contains(x, y))
 		{
 			if(pressedButton.equals(menu))
@@ -133,6 +131,14 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 			upgradeBox.open();
 		else if(dragSpeed < -50 * hRatio)
 			upgradeBox.close();
+		else
+		{
+			if(!upgradeBox.touchUp(x, y))
+			{
+				MoveResolution mr = player1.touchUp(event, x, y, pointer, button);
+				gameBoard.resolveCommand(mr);
+			}
+		}
 		/*
 		if(!flag)
 		{
@@ -191,5 +197,6 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	{
 		gameBoard.resetBoard();
 		player1.reset();
+		upgradeBox.reset();
 	}
 }

@@ -31,15 +31,16 @@ public class Player
 		resetState();
 	}
 
-	public boolean touchDown(InputEvent event, float x, float y, int pointer,
-			int button) 
+	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) 
 	{
+		System.out.println("Player touchDown()");
 		previousCell = board.getCellForCoordinates(x , y);
 		return previousCell != null;
 	}
 	
 	public MoveResolution touchUp(InputEvent event ,float x , float y , int pointer , int button)
 	{		
+		System.out.println("Player touchUp()");
 		Cell nc = board.getCellForCoordinates(x , y);
 		if(nc != null && state == PlayerState.INSTANTIATING)
 		{
