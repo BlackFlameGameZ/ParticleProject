@@ -15,8 +15,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Align;
+import com.blackflamegamez.game.enums.PlayerState;
 import com.blackflamegamez.game.staticfields.GameStaticValues;
 
+/**
+ * @author Mario Burovic
+ * @author Milan Topalovic
+ */
 public class UpgradeBox 
 {
 	private float 		x;
@@ -32,15 +37,16 @@ public class UpgradeBox
 	private Hexagon 	selectedHexagon;
 	private float 		xOffset;
 	private float   	xBaseStep;
-	private int 		mode;
 	private Rectangle 	rect;
+	private Player      player;
 	
 	private Label title;
 	
-	public UpgradeBox(float x, float y) 
+	public UpgradeBox(float x, float y , Player player) 
 	{
 		this.x 			= x;
 		this.y 			= y;
+		this.player     = player;
 		opened 			= false;
 		xOffset 		= -550;
 		atkUpgrade 		= new Hexagon(x + 580 + xOffset, y + 543, 100);
@@ -48,7 +54,6 @@ public class UpgradeBox
 		attack 			= new Hexagon(x + 580 + xOffset, y + 255, 100);
 		split 			= new Hexagon(x + 580 + xOffset, y + 111, 100);
 		selectedHexagon = null;
-		mode			= -1;
 		xBaseStep		= 30;
 		animate 		= false;
 		rect			= new Rectangle(x + xOffset * hRatio, y * vRatio - ratioDifference, 630 * hRatio, 704 * hRatio);
@@ -82,7 +87,7 @@ public class UpgradeBox
 		batch.draw(Assets.manager.get("images/left_upgrade_box.png", Texture.class)		, x + xOffset * hRatio, y * vRatio - ratioDifference, 682 * hRatio, 704 * hRatio);
 		rect.setPosition(x + xOffset * hRatio, y * vRatio - ratioDifference);
 		
-		if(mode != -1)
+		if(player.getState() != PlayerState.WAITING_FOR_COMMAND && player.getState() != PlayerState.INSTANTIATING)
 		{
 			float movedHilight = hilightX + xOffset * hRatio;
 			batch.draw(Assets.manager.get("images/green_highlight.png", Texture.class)	, movedHilight, hilightY, 100 * hRatio, 100 * hRatio);
@@ -131,7 +136,6 @@ public class UpgradeBox
 	{
 		opened 			= false;
 		xOffset 		= -550;
-		mode 			= -1;
 		updateHexs();
 	}
 	
@@ -166,7 +170,8 @@ public class UpgradeBox
 	public boolean touchUp(float x, float y)
 	{
 		boolean retVal = false;
-		if(!animate)
+		PlayerState currentState = player.getState();
+		if(!animate && currentState != PlayerState.INSTANTIATING)
 		{
 			if(selectedHexagon != null)
 			{
@@ -175,10 +180,7 @@ public class UpgradeBox
 					System.out.println("ATK UPGRADE");
 					hilightX = this.x + 582 *hRatio;
 					hilightY = (this.y + 518) * vRatio - ratioDifference;
-					if(mode == -1 || mode != 0)
-						mode = 0;
-					else
-						mode = -1;
+					player.setState(PlayerState.UPGRADING_ATK);
 					retVal = true;
 				}
 				else if(selectedHexagon.equals(defUpgrade) && defUpgrade.contains(x, y))
@@ -186,10 +188,7 @@ public class UpgradeBox
 					System.out.println("DEF UPGRADE");
 					hilightX = this.x + 580 *hRatio;
 					hilightY = (this.y + 372) * vRatio - ratioDifference;
-					if(mode == -1 || mode != 1)
-						mode = 1;
-					else
-						mode = -1;
+					player.setState(PlayerState.UPGRADING_DEF);
 					retVal = true;
 				}
 				else if(selectedHexagon.equals(attack) && attack.contains(x, y))
@@ -197,10 +196,7 @@ public class UpgradeBox
 					System.out.println("ATTACK");
 					hilightX = this.x + 580 *hRatio;
 					hilightY = (this.y + 229) * vRatio - ratioDifference;
-					if(mode == -1 || mode != 2)
-						mode = 2;
-					else
-						mode = -1;
+					player.setState(PlayerState.ATTACKING);
 					retVal = true;
 				}
 				else if(selectedHexagon.equals(split) && split.contains(x, y))
@@ -208,10 +204,7 @@ public class UpgradeBox
 					System.out.println("SPLIT");
 					hilightX = this.x + 580 *hRatio;
 					hilightY = (this.y + 86) * vRatio - ratioDifference;
-					if(mode == -1 || mode != 3)
-						mode = 3;
-					else
-						mode = -1;
+					player.setState(PlayerState.SPLITTING);
 					retVal = true;
 				}
 			}
@@ -220,11 +213,6 @@ public class UpgradeBox
 		if(rect.contains(x, y))
 			retVal = true;
 		return retVal;
-	}
-	
-	public int getMode() 
-	{
-		return mode;
 	}
 	
 	public boolean isOpened() 

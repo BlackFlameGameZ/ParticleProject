@@ -29,7 +29,7 @@ import com.blackflamegamez.game.uielements.MessageDialog;
 
 /**
  * @author Milan Topalovic
- *
+ * 
  */
 public class ParticleGameScreen extends ScreenAdapter implements Touchable
 {
@@ -45,6 +45,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	private GenericDialog       dialog;
 	private UpgradeBox 			upgradeBox;
 	
+	//UpdateBox stuff
 	private float 				startingX;
 	private float 				startingXSpeed;
 	private float 				dragSpeed;
@@ -60,7 +61,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		menu 		= new RectangleButton(Assets.manager.get("images/menu.png", Texture.class), Assets.manager.get("images/menu_pressed.png", Texture.class), 0, 1472, 318, 100);
 		stage.addListener(listener);
 		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
-		upgradeBox = new UpgradeBox(0, 448);
+		upgradeBox = new UpgradeBox(0, 448 , player1);
 	}
 	
 	@Override
@@ -81,13 +82,6 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 			batch.draw(board_grid, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
 			menu.render(batch);
 			gameBoard.render(batch, delta);
-			if(dialog != null)
-			{
-				if(dialog.getWindowClosed())
-					dialog = null;
-				else
-					dialog.render(batch, delta);
-			}
 			upgradeBox.render(batch, delta);
 		batch.end();
 		/* DEBUG 
@@ -139,22 +133,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 				gameBoard.resolveCommand(mr);
 			}
 		}
-		/*
-		if(!flag)
-		{
-			if(dialog != null)
-			{
-				if(dialog.canClose())
-					dialog.closeWindow();
-			} else {
-				MoveResolution mr = player1.touchUp(event, x, y, pointer, button);
-				boolean validMove; 
-				if(mr.getAction() == ParticleAction.CREATE_DIALOG)
-					createDialog(mr , x , y);
-				else
-					validMove = gameBoard.resolveCommand(mr);
-			}
-		}*/
+
 		menu.setPressed(false);
 		pressedButton = null;
 	}
@@ -170,6 +149,7 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 		System.out.println("DragSpped: " + dragSpeed);
 	}
 	
+	//Will see about this function at the moment not used
 	private void createDialog(MoveResolution mr , float x , float y)
 	{
 		Cell c = mr.getTargetCell();

@@ -33,16 +33,14 @@ public class Player
 
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) 
 	{
-		System.out.println("Player touchDown()");
 		previousCell = board.getCellForCoordinates(x , y);
 		return previousCell != null;
 	}
 	
 	public MoveResolution touchUp(InputEvent event ,float x , float y , int pointer , int button)
 	{		
-		System.out.println("Player touchUp()");
 		Cell nc = board.getCellForCoordinates(x , y);
-		if(nc != null && state == PlayerState.INSTANTIATING)
+		if(nc == previousCell && state == PlayerState.INSTANTIATING)
 		{
 			if(nc.getParticle() == null)
 			{
@@ -53,10 +51,17 @@ public class Player
 				resetState();
 				return MoveResolution.create(ParticleAction.INVALID_MOVE);
 			}
-		}  else if (nc != null && state == PlayerState.WAITING_FOR_COMMAND) {
-			resetState();
-			return MoveResolution.create(ParticleAction.CREATE_DIALOG).forPlayer(this).toCell(nc);
-		} else {
+		} else if( nc != null && state == PlayerState.UPGRADING_ATK) {
+			  resetState();
+			  return MoveResolution.create(ParticleAction.UPGRADE).forPlayer(this).addToAttack(1).addToDefense(0).toCell(nc);
+		} else if( nc != null && state == PlayerState.UPGRADING_DEF) {
+			  resetState();
+			  return MoveResolution.create(ParticleAction.UPGRADE).forPlayer(this).addToAttack(0).addToDefense(1).toCell(nc);
+		} else if( nc != null && previousCell != null && state == PlayerState.SPLITTING){
+		      MoveResolution mr = MoveResolution.create(ParticleAction.SPLIT).forPlayer(this).addToAttack(0).addToDefense(1).fromCell(previousCell).toCell(nc);
+		      resetState();
+		      return mr;
+		}  else {
 			resetState();
 			return MoveResolution.create(ParticleAction.INVALID_MOVE);
 		}
@@ -89,6 +94,11 @@ public class Player
 	public void setState(PlayerState s)
 	{
 		state = s;
+	}
+	
+	public PlayerState getState()
+	{
+		return state;
 	}
 	
 	/* probna metoda */

@@ -83,6 +83,8 @@ public class GameBoard extends GenericBoard {
 			return createCell(move);
 		if(move.getAction() == ParticleAction.UPGRADE)
 			return upgradeCell(move);
+		/*if(move.getAction() == ParticleAction.SPLIT)
+			return split(move);*/
 		else
 			return false;
 	}
@@ -111,6 +113,17 @@ public class GameBoard extends GenericBoard {
 			return false;
 		targetCell.upgradeParticle(move.getAttack(), move.getDefense());
 		return true;
+	}
+	
+	private boolean split(MoveResolution move)
+	{
+		Player p 		  = move.getPlayer();
+		Cell targetCell   = move.getTargetCell();
+		Cell startingCell = move.getStartCell();
+		int  attack       = move.getAttack();
+		int  defense      = move.getDefense();
+		
+		return false;
 	}
 	
 }

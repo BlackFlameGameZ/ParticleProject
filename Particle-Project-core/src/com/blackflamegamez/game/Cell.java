@@ -22,14 +22,10 @@ public class Cell extends Body2D
 	private Hexagon hexagon;
 	private ArrayList<Cell> neighbours;
 	private Particle particle;
-	private float tmpx;
-	private float tmpy;
 	
 	public Cell(float x , float y , float width , float height , int row , int col , Hexagon hexagon)
 	{
 		super(x , y , width , height);
-		tmpx = x;
-		tmpy = y;
 		this.row      = row;
 		this.col	  = col;
 		this.hexagon  = hexagon;
