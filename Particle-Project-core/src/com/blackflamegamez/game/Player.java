@@ -40,7 +40,7 @@ public class Player
 	public MoveResolution touchUp(InputEvent event ,float x , float y , int pointer , int button)
 	{		
 		Cell nc = board.getCellForCoordinates(x , y);
-		if(nc == previousCell && state == PlayerState.INSTANTIATING)
+		if(nc == previousCell && nc != null && state == PlayerState.INSTANTIATING)
 		{
 			if(nc.getParticle() == null)
 			{
@@ -57,11 +57,15 @@ public class Player
 		} else if( nc != null && state == PlayerState.UPGRADING_DEF) {
 			  resetState();
 			  return MoveResolution.create(ParticleAction.UPGRADE).forPlayer(this).addToAttack(0).addToDefense(1).toCell(nc);
-		} else if( nc != null && previousCell != null && state == PlayerState.SPLITTING){
+		} else if(previousCell != null && previousCell != nc && state == PlayerState.SPLITTING){
 		      MoveResolution mr = MoveResolution.create(ParticleAction.SPLIT).forPlayer(this).addToAttack(0).addToDefense(1).fromCell(previousCell).toCell(nc);
 		      resetState();
 		      return mr;
-		}  else {
+		} else if(previousCell != null && nc != null && previousCell != nc && state == PlayerState.ATTACKING) {
+			MoveResolution mr = MoveResolution.create(ParticleAction.ATTACK).forPlayer(this).addToAttack(1).addToDefense(0).toCell(nc).fromCell(previousCell);  
+			resetState();
+			return mr; 
+		} else {
 			resetState();
 			return MoveResolution.create(ParticleAction.INVALID_MOVE);
 		}

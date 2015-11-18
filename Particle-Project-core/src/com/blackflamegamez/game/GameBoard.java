@@ -83,8 +83,10 @@ public class GameBoard extends GenericBoard {
 			return createCell(move);
 		if(move.getAction() == ParticleAction.UPGRADE)
 			return upgradeCell(move);
-		/*if(move.getAction() == ParticleAction.SPLIT)
-			return split(move);*/
+		if(move.getAction() == ParticleAction.SPLIT)
+			return split(move);
+		if(move.getAction() == ParticleAction.ATTACK)
+			return attack(move);
 		else
 			return false;
 	}
@@ -122,8 +124,51 @@ public class GameBoard extends GenericBoard {
 		Cell startingCell = move.getStartCell();
 		int  attack       = move.getAttack();
 		int  defense      = move.getDefense();
-		
-		return false;
+		if(startingCell.getParticle() == null || !startingCell.hasNeighbour(targetCell))
+			return false;
+		if(targetCell.getParticle() != null)
+			if(startingCell.getParticle().getCellOwner() != targetCell.getParticle().getCellOwner())
+				return false;
+		int ta = 0 , td = 0 , sd = startingCell.getParticle().getDefenseLvl();
+		if(sd - defense < 1)
+			return false;
+		if(targetCell.getParticle() != null)
+		{
+			ta = targetCell.getParticle().getAttackLvl();
+			td = targetCell.getParticle().getDefenseLvl();
+			if(ta + attack > 5 || td + defense > 5 ) //we can't have more than 5 defense or attack units per cell and likewise we can't have less than one defense unit per cell
+				return false;
+			targetCell.upgradeParticle(attack, defense);
+			startingCell.downgradeParticle(attack, defense);
+			return true;
+		} else {
+			targetCell.createParticle(p, attack, defense);
+			startingCell.downgradeParticle(attack, defense);
+			return true;
+		}
+	}
+	
+	public boolean attack(MoveResolution move)
+	{
+		Player p = move.getPlayer();
+		Cell   startingCell = move.getStartCell();
+		Cell   targetCell   = move.getTargetCell();
+		int    attack       = move.getAttack();
+		int    defense  	= move.getDefense();
+		if(startingCell.getParticle() == null || targetCell.getParticle() == null || !startingCell.hasNeighbour(targetCell))
+			return false;
+		if(startingCell.getParticle().getCellOwner() == targetCell.getParticle().getCellOwner()) //same cell owners so attack upgrade should fallow
+		{
+			int sa = startingCell.getParticle().getAttackLvl() , ta = targetCell.getParticle().getAttackLvl();
+			if(sa == 0 || ta + 1 > 5)
+				return false;
+			startingCell.downgradeParticle(attack, defense);
+			targetCell.upgradeParticle(attack, defense);
+			return true;
+		} else {
+			//TODO: attacking opponents cell
+			return true;
+		}
 	}
 	
 }

@@ -180,7 +180,10 @@ public class UpgradeBox
 					System.out.println("ATK UPGRADE");
 					hilightX = this.x + 582 *hRatio;
 					hilightY = (this.y + 518) * vRatio - ratioDifference;
-					player.setState(PlayerState.UPGRADING_ATK);
+					if(currentState == PlayerState.UPGRADING_ATK)
+						player.setState(PlayerState.WAITING_FOR_COMMAND);
+					else
+						player.setState(PlayerState.UPGRADING_ATK);
 					retVal = true;
 				}
 				else if(selectedHexagon.equals(defUpgrade) && defUpgrade.contains(x, y))
@@ -188,7 +191,10 @@ public class UpgradeBox
 					System.out.println("DEF UPGRADE");
 					hilightX = this.x + 580 *hRatio;
 					hilightY = (this.y + 372) * vRatio - ratioDifference;
-					player.setState(PlayerState.UPGRADING_DEF);
+					if(currentState == PlayerState.UPGRADING_DEF)
+						player.setState(PlayerState.WAITING_FOR_COMMAND);
+					else
+						player.setState(PlayerState.UPGRADING_DEF);
 					retVal = true;
 				}
 				else if(selectedHexagon.equals(attack) && attack.contains(x, y))
@@ -196,7 +202,10 @@ public class UpgradeBox
 					System.out.println("ATTACK");
 					hilightX = this.x + 580 *hRatio;
 					hilightY = (this.y + 229) * vRatio - ratioDifference;
-					player.setState(PlayerState.ATTACKING);
+					if(currentState == PlayerState.ATTACKING)
+						player.setState(PlayerState.WAITING_FOR_COMMAND);
+					else
+						player.setState(PlayerState.ATTACKING);
 					retVal = true;
 				}
 				else if(selectedHexagon.equals(split) && split.contains(x, y))
@@ -204,7 +213,10 @@ public class UpgradeBox
 					System.out.println("SPLIT");
 					hilightX = this.x + 580 *hRatio;
 					hilightY = (this.y + 86) * vRatio - ratioDifference;
-					player.setState(PlayerState.SPLITTING);
+					if(currentState == PlayerState.SPLITTING)
+						player.setState(PlayerState.WAITING_FOR_COMMAND);
+					else
+						player.setState(PlayerState.SPLITTING);
 					retVal = true;
 				}
 			}

@@ -79,6 +79,11 @@ public class Cell extends Body2D
 			particle.render(batch, delta);
 	}
 	
+	public boolean hasNeighbour(Cell targetCell) 
+	{
+		return neighbours.contains(targetCell);
+	}
+	
 	public void setNeighbours(ArrayList<Cell> n)
 	{
 		this.neighbours = n;

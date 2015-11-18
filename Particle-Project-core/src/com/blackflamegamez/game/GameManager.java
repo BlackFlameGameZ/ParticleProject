@@ -2,6 +2,7 @@ package com.blackflamegamez.game;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.blackflamegamez.game.interfaces.PBluetooth;
 import com.blackflamegamez.gameScreens.LoadingScreen;
 import com.blackflamegamez.gameScreens.MainMenuScreen;
 import com.blackflamegamez.gameScreens.OptionsScreen;
@@ -17,6 +18,7 @@ import com.blackflamegamez.gameScreens.SplashScreen;
 public class GameManager 
 {
 	private SpriteBatch batch;
+	private PBluetooth  bluetoothI;
 	private Screen      loadingScreen;
 	private Screen      splashScreen;
 	private Screen		mmScreen;
@@ -26,10 +28,11 @@ public class GameManager
 	private Screen      currentScreen;
 	private GameCore    game;
 	
-	public GameManager(GameCore game , SpriteBatch batch)
+	public GameManager(GameCore game , SpriteBatch batch , PBluetooth bluetoothI)
 	{
 		this.game  		= game;
 		this.batch 		= batch;
+		this.bluetoothI = bluetoothI;
 		loadingScreen 	= null;
 		splashScreen 	= null;
 		mmScreen 		= null;
@@ -69,7 +72,7 @@ public class GameManager
 	public void setMainMenuScreen()
 	{
 		if(mmScreen == null)
-			mmScreen = new MainMenuScreen(batch);
+			mmScreen = new MainMenuScreen(batch , bluetoothI);
 		currentScreen = mmScreen;
 		game.setScreen(currentScreen);
 	}

@@ -14,7 +14,7 @@ public class DesktopLauncher
 		config.height 	= 720;//LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 		config.resizable= false;
 		//config.fullscreen = true;
-		new LwjglApplication(new GameCore(), config);
+		new LwjglApplication(new GameCore(new DesktopPBluetooth()), config);
 		System.out.println("After LwjglApplication");
 	}
 }

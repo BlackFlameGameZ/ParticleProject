@@ -7,12 +7,10 @@ import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.blackflamegamez.game.Assets;
@@ -20,6 +18,7 @@ import com.blackflamegamez.game.CustomButton;
 import com.blackflamegamez.game.GameCore;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
+import com.blackflamegamez.game.interfaces.PBluetooth;
 
 public class MainMenuScreen extends ScreenAdapter implements Touchable
 {
@@ -32,8 +31,10 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 	private Stage 			stage;
 	//Pixmap
 	
-	
-	public MainMenuScreen(SpriteBatch batch) 
+	PBluetooth bluetooth;
+	float elapsedTime = 0f;
+	boolean show = true;
+	public MainMenuScreen(SpriteBatch batch , PBluetooth itf) 
 	{
 		this.batch 	= batch;
 		play 		= new CustomButton(Assets.manager.get("images/mm_screen/play_[975, 800].png", Texture.class), Assets.manager.get("images/mm_screen/play_pressed_[975, 800].png", Texture.class), 975, 800);
@@ -43,6 +44,7 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 		stage 		= new Stage();
 		
 		stage.addListener(new CustomInputListener(this));
+		this.bluetooth = itf;
 		//options.setDisabled(true);
 	}
 	
@@ -57,6 +59,7 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		elapsedTime += delta;
 		batch.begin();
 			batch.draw(background, 0, 0 - ratioDifference, 2560 * hRatio, 1600 * hRatio);
 			batch.draw(Assets.manager.get("images/mm_screen/title_[870, 1027].png", Texture.class), 870 * hRatio, 1027 * vRatio - ratioDifference, 820 * hRatio, 300 * hRatio);
@@ -68,6 +71,11 @@ public class MainMenuScreen extends ScreenAdapter implements Touchable
 			options.render(batch);
 			exit.render(batch);
 		batch.end();
+		if(elapsedTime >= 1.5f && show)
+		{
+			bluetooth.debug();
+			show = false;
+		}
 		 /*DEBUGGING
 		sr.setColor(Color.WHITE);
 		sr.begin(ShapeType.Line);
