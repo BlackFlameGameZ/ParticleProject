@@ -20,6 +20,9 @@ public class AnimatedSprite extends ScreenAdapter
 	private float 			width;
 	private float 			height;
 	private boolean			loop;
+	private boolean 		forceFinish;
+	private float			elapsedTime;
+	private boolean 		isPaused;
 	
 	/**
 	 * Constructor, storing texture, texture region width and height
@@ -34,6 +37,9 @@ public class AnimatedSprite extends ScreenAdapter
 		this.width		= width;
 		this.height		= height;
 		this.loop		= loop;
+		forceFinish 	= false;
+		elapsedTime		= 0;
+		isPaused		= false;
 		createAnimation();
 	}
 	
@@ -51,6 +57,8 @@ public class AnimatedSprite extends ScreenAdapter
 		this.width		= width;
 		this.height		= height;
 		this.loop		= loop;
+		forceFinish 	= false;
+		isPaused		= false;
 		createAnimation();
 	}
 	
@@ -74,18 +82,58 @@ public class AnimatedSprite extends ScreenAdapter
 			animation.setPlayMode(PlayMode.NORMAL);
 	}
 	
+	public void changeSource(Texture tex)
+	{
+		texture = tex;
+		createAnimation();
+	}
+	
+	public void forceFinish()
+	{
+		while(elapsedTime > animation.getAnimationDuration())
+			elapsedTime -= animation.getAnimationDuration();
+		forceFinish = true;
+		System.out.println("ForceFinish !");
+	}
+	
+	public void forcePlay()
+	{
+		forceFinish = false;
+		play();
+		System.out.println("ForcePlay !");
+	}
+	
+	public void play()
+	{
+		isPaused = false;
+	}
+	
+	public void pause()
+	{
+		isPaused = true;
+	}
+	
+	public void reset()
+	{
+		elapsedTime = 0;
+	}
+	
 	/**
 	 * 
 	 * @param stateTime is used to determine which frame of the animation should be returned
 	 * @return instance of TextureRegion class which represents one frame in animation
 	 */
-	public TextureRegion getFrame(float stateTime)
+	public TextureRegion getFrame(float delta)
 	{
-		return animation.getKeyFrame(stateTime);
+		if(forceFinish && elapsedTime > animation.getAnimationDuration())
+			pause();
+		if(!isPaused)
+			elapsedTime += delta;
+		return animation.getKeyFrame(elapsedTime);
 	}
 	
-	public boolean animationFinished(float deltaTime)
+	public boolean isFinished()
 	{
-		return animation.isAnimationFinished(deltaTime);
+		return animation.isAnimationFinished(elapsedTime);
 	}
 }

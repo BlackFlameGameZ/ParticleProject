@@ -31,7 +31,7 @@ public class LoadingScreen extends ScreenAdapter
 	public LoadingScreen(SpriteBatch batch) 
 	{
 		this.batch 		= batch;
-		loadingSprite 	= new AnimatedSprite("images/loading_#[358,306].png", 358, 306, false);
+		loadingSprite 	= new AnimatedSprite("images/loading_#[358,306].png", 358, 306, true);
 		BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/loading_font.fnt"));
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		label			= new Label("0%", new LabelStyle(font, Color.WHITE));
@@ -39,8 +39,6 @@ public class LoadingScreen extends ScreenAdapter
 		resolutionLabel.setPosition(20 * hRatio, 0);
 		
 		resolutionLabel.setFontScale(hRatio);
-		
-		
 		
 		label.setSize(GameStaticValues.realWidth, 30);
 		label.setPosition(6 * hRatio, 608 * vRatio - ratioDifference);
@@ -62,7 +60,7 @@ public class LoadingScreen extends ScreenAdapter
 		elapsedTime = 1f/60f * (int)(Assets.manager.getProgress()/loadStep);
 		Assets.manager.update();
 		batch.begin();
-			batch.draw(loadingSprite.getFrame(elapsedTime), 1102 * hRatio, 688 * vRatio - ratioDifference, 358 * hRatio, 306 * hRatio);
+			batch.draw(loadingSprite.getFrame(delta), 1102 * hRatio, 688 * vRatio - ratioDifference, 358 * hRatio, 306 * hRatio);
 			label.draw(batch, 1f);
 			resolutionLabel.draw(batch, 1f);
 		batch.end();

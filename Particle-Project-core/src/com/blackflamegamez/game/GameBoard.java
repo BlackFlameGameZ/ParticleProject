@@ -170,5 +170,4 @@ public class GameBoard extends GenericBoard {
 			return true;
 		}
 	}
-	
 }

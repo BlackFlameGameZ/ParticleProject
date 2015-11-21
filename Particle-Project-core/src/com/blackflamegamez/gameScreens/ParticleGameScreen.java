@@ -42,8 +42,8 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	private RectangleButton 	menu;
 	private RectangleButton		pressedButton;
 	private Player              player1 , player2;
-	private GenericDialog       dialog;
 	private UpgradeBox 			upgradeBox;
+	private Cell 				selectedCell;
 	
 	//UpdateBox stuff
 	private float 				startingX;
@@ -53,15 +53,21 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 	public ParticleGameScreen(SpriteBatch batch) 
 	{
 		this.batch 	= batch;
+		initialize();
+		stage.addListener(listener);
+	}
+	
+	private void initialize() 
+	{
 		stage       = new Stage();
 		listener    = new CustomInputListener(this);
 		sr			= new ShapeRenderer();
 		gameBoard   = new GameBoard(starting_x , starting_y , rect_width ,h_padding , v_padding );
 		player1     = new Player(ParticleColor.GREEN, ParticleColor.RED , gameBoard);
 		menu 		= new RectangleButton(Assets.manager.get("images/menu.png", Texture.class), Assets.manager.get("images/menu_pressed.png", Texture.class), 0, 1472, 318, 100);
-		stage.addListener(listener);
 		board_grid	= Assets.manager.get("images/board_grid.png", Texture.class);
 		upgradeBox = new UpgradeBox(0, 448 , player1);
+		selectedCell = null;
 	}
 	
 	@Override
@@ -121,12 +127,19 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 				flag = true;
 			}
 		}
+		if(selectedCell != null && selectedCell.getParticle() != null)
+			selectedCell.getParticle().deactivate();
+		selectedCell = gameBoard.getCellForCoordinates(x, y);
+		
 		if(dragSpeed > 50 * hRatio)
 			upgradeBox.open();
 		else if(dragSpeed < -50 * hRatio)
 			upgradeBox.close();
 		else
 		{
+			if(selectedCell != null && selectedCell.getParticle() != null)
+				selectedCell.getParticle().activate();
+			
 			if(!upgradeBox.touchUp(x, y))
 			{
 				MoveResolution mr = player1.touchUp(event, x, y, pointer, button);
@@ -147,18 +160,6 @@ public class ParticleGameScreen extends ScreenAdapter implements Touchable
 			dragSpeed = x - startingXSpeed;
 		startingXSpeed = x;
 		System.out.println("DragSpped: " + dragSpeed);
-	}
-	
-	//Will see about this function at the moment not used
-	private void createDialog(MoveResolution mr , float x , float y)
-	{
-		Cell c = mr.getTargetCell();
-		int col = c.getCol();
-		int row = c.getRow();
-		float nx = x / hRatio;
-		float ny = (y + ratioDifference) / vRatio;
-		String text = "Cell at:\nCol : " + col + "\n" + "Row : " + row;
-		dialog = new MessageDialog(nx , ny , GenericDialog.DialogDirection.DOWN_RIGHT , text);
 	}
 	
 	@Override

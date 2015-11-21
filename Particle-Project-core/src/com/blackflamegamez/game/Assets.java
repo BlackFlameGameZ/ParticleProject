@@ -15,8 +15,8 @@ public class Assets
 		//komentar
 		for(int i = 1 ; i < 6 ; i++)
 		{
-			manager.load("images/particle/atk_" + i + ".png", Texture.class);
-			manager.load("images/particle/def_" + i + ".png", Texture.class);
+			manager.load("images/particle/atk_" + i + "_#[80,80].png", Texture.class);
+			manager.load("images/particle/def_" + i + "_#[180,180].png", Texture.class);
 		}
 		
 		manager.load("images/splash_#[625,493].png", Texture.class);
@@ -75,8 +75,8 @@ public class Assets
 		//komentar
 		for(int i = 1 ; i < 6 ; i++)
 		{
-			manager.get("images/particle/atk_" + i + ".png", Texture.class)						.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-			manager.get("images/particle/def_" + i + ".png", Texture.class)						.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			manager.get("images/particle/atk_" + i + "_#[80,80].png", Texture.class)						.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			manager.get("images/particle/def_" + i + "_#[180,180].png", Texture.class)						.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		manager.get("images/mm_screen/play_[975, 800].png", Texture.class)						.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/mm_screen/play_pressed_[975, 800].png", Texture.class)				.setFilter(TextureFilter.Linear, TextureFilter.Linear);

@@ -49,10 +49,11 @@ public class SplashScreen extends ScreenAdapter
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if(mode == 1)
-			elapsedTime += delta;
-		else
+		if(mode != 1)
+		{
 			alpha += alphaStep;
+			splashSprite.pause();
+		}
 		
 		if(mode == 2 && alpha < 0)
 			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setMainMenuScreen();
@@ -61,21 +62,22 @@ public class SplashScreen extends ScreenAdapter
 			if(alpha > 0)
 			{
 				batch.setColor(batchColor.r, batchColor.g, batchColor.b, alpha);
-				batch.draw(splashSprite.getFrame(elapsedTime), 967 * hRatio, 620 * vRatio - ratioDifference, 625 * hRatio, 493 * hRatio);
+				batch.draw(splashSprite.getFrame(delta), 967 * hRatio, 620 * vRatio - ratioDifference, 625 * hRatio, 493 * hRatio);
 				batch.setColor(batchColor);
 			}
 		batch.end();
 		
 		if(mode == 0 && alpha >= 59f/60f)
 		{
-			alpha = 1;
-			mode++;
+			alpha 	= 1;
+			mode 	= 1;
+			splashSprite.play();
 		}
 		
-		if(mode == 1 && splashSprite.animationFinished(elapsedTime))
+		if(mode == 1 && splashSprite.isFinished())
 		{
-			mode = 2;
-			alphaStep = -alphaStep;
+			mode 		= 2;
+			alphaStep 	= -alphaStep;
 		}
 		
 		if(mode == 2 && alpha < 0)

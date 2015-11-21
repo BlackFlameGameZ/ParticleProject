@@ -38,9 +38,7 @@ public class Cell extends Body2D
 			return;
 		float x1 = x/hRatio;
 		float y1 = (y + ratioDifference)/vRatio;
-		x1 -= 30f;
-		y1 -= 30f;
-		particle = new Particle(p , x1, y1, 240f, defense, attack);
+		particle = new Particle(p , x1, y1, 180f, defense, attack);
 	}
 	
 	/**

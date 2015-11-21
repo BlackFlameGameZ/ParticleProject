@@ -6,62 +6,39 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.blackflamegamez.game.enums.ParticleColor;
 import com.blackflamegamez.game.geometry.Body2D;
 
-import static java.lang.Math.min;
-import static java.lang.Math.max;
-
 public class Particle extends Body2D 
 {
-	private int 		   	defense;
-	private int 		   	attack;
-	private int 			atkLvl;
-	private int 			defLvl;
-	private Color          	shieldColor;
-	private Color			bulletColor;
-	private boolean			drawBase;
 	private Player          player;
-	
-	
+	private Shield			shield;
+	private Attack			attack;
 	
 	public Particle(Player p , float x , float y , float width , int defLevel , int atkLevel)
 	{
 		super(x , y , width , width);
-		atkLvl 	= atkLevel;
-		defLvl 	= defLevel;
-		attack 	= 0;
-		defense = 0;
 		player   = p;
-		shieldColor = ParticleColor.getColor(player.getShieldColor());
-		bulletColor = ParticleColor.getColor(player.getAttackColor());
-		drawBase = true;
-		calculate();
+		shield = new Shield(ParticleColor.getColor(player.getShieldColor()));
+		attack = new Attack(ParticleColor.getColor(player.getAttackColor()));
 	}
 	
 	public void render(SpriteBatch batch , float delta)
 	{
-		Color bc = batch.getColor();
-		if(drawBase)
-			batch.draw(Assets.manager.get("images/particle/base.png" , Texture.class) , x , y , width , height);
-		batch.setColor(bulletColor);
-		if(attack != 0)
-			batch.draw(Assets.manager.get("images/particle/atk_" + atkLvl + ".png" , Texture.class) , x , y , width , height);
-		batch.setColor(shieldColor);
-		if(defense != 0)
-			batch.draw(Assets.manager.get("images/particle/def_" + defLvl + ".png" , Texture.class) , x , y , width , height);
-		batch.setColor(bc);
+		batch.draw(Assets.manager.get("images/particle/base.png" , Texture.class) , x , y , width , height);
+		
+		shield.render(batch, x, y, delta);
+		attack.render(batch, x, y, delta);
+		
+		batch.setColor(Color.WHITE);
 	}
 	
 	private void calculate()
 	{
-		attack 	= (int)((1 + ((float)defLvl - 1) * 0.2) * (float)atkLvl * 10);
-		defense = (int)((1 + ((float)atkLvl - 1) * 0.1) * (float)defLvl * 10);
+		//attack 	= (int)((1 + ((float)defLvl - 1) * 0.2) * (float)atkLvl * 10);
+		//(int)((1 + ((float)atkLvl - 1) * 0.1) * (float)defLvl * 10);
 	}
 	
 	public void addAttack(int toAdd)
 	{
-		if(toAdd <= 0)
-			return;
-		atkLvl = min(5 , atkLvl + toAdd);
-		calculate();
+		attack.levelUp(toAdd);
 	}
 	/**
 	 * Removes some value from attack
@@ -69,18 +46,12 @@ public class Particle extends Body2D
 	 */
 	public void remAttack(int toRem)
 	{
-		if(toRem <= 0)
-			return;
-		atkLvl = max(0 , atkLvl - toRem);
-		calculate();
+		attack.levelDown(toRem);
 	}
 	
 	public void addDefense(int toAdd)
 	{
-		if(toAdd <= 0)
-			return;
-		defLvl = min(5 , defLvl + toAdd);
-		calculate();
+		shield.levelUp(toAdd);
 	}
 	
 	/**
@@ -89,34 +60,45 @@ public class Particle extends Body2D
 	 */
 	public void remDefense(int toRem)
 	{
-		if(toRem <= 0)
-			return;
-		defLvl = max(0 , defLvl - toRem);
-		calculate();
+		shield.levelDown(toRem);
 	}
 	
 	public int getAttackLvl()
 	{
-		return atkLvl;
+		return attack.getLevel();
 	}
 	
 	public int getDefenseLvl()
 	{
-		return defLvl;
+		return shield.getLevel();
 	}
-	
+	/*
 	public int getAttack() 
 	{
 		return attack;
-	}
+	}*/
 	
 	public int getDefense() 
 	{
-		return defense;
+		return shield.getHealth();
 	}
 	
 	public Player getCellOwner()
 	{
 		return player;
+	}
+	
+	public void activate()
+	{
+		System.out.println("Activate");
+		shield.activate();
+		attack.activate();
+	}
+	
+	public void deactivate()
+	{
+		System.out.println("Deactivate");
+		shield.deactivate();
+		attack.deactivate();
 	}
 }
