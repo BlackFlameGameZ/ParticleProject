@@ -107,7 +107,7 @@ public class GameBoard extends GenericBoard {
 		Cell targetCell = move.getTargetCell();
 		if(targetCell.getParticle() == null)
 			return false;
-		if(targetCell.getParticle().getCellOwner() != p)
+		if(targetCell.getParticle().getOwner() != p)
 			return false;
 		int tatk = targetCell.getParticle().getAttackLvl();
 		int tdef = targetCell.getParticle().getDefenseLvl();

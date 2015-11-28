@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blackflamegamez.game.geometry.Body2D;
+import com.blackflamegamez.game.particle.Particle;
 
 /**
  * @author Milan Topalovic
