@@ -1,8 +1,6 @@
 package com.blackflamegamez.game.geometry;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.*;
 
-import com.blackflamegamez.game.uielements.GenericDialog;
-
 
 /**Purpose of this class is to contain coordinates of object's which are rendered on the screen
  * @author Milan Topalovic

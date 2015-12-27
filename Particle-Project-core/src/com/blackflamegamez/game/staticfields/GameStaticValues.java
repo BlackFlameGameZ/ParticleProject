@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.blackflamegamez.game.Assets;
+import com.blackflamegamez.game.Background;
 import com.blackflamegamez.game.Ratios;
 
 public class GameStaticValues 
@@ -19,7 +20,8 @@ public class GameStaticValues
 	public static float hRatio;
 	public static float ratioDifference;
 	
-	public static Texture 	background;
+	public static Background[] backgroundArray;
+	public static Background 	background;
 	public static Skin 		skin;
 	public static Color 	originalColor;
 	
@@ -60,13 +62,16 @@ public class GameStaticValues
 	
 	public static void loadBackground()
 	{
-		background 	= Assets.manager.get("images/backgrounds/bg_2.png", Texture.class);
+		backgroundArray = new Background[]
+		{
+			new Background(Assets.manager.get("images/backgrounds/u_1.jpg", Texture.class), new Color(187f/255f, 0f, 1f, 1f)), 
+			new Background(Assets.manager.get("images/backgrounds/u_2.jpg", Texture.class), new Color(0f, 137f/255f, 1f, 1f)),
+			new Background(Assets.manager.get("images/backgrounds/u_3.jpg", Texture.class), new Color(0f, 179f/255f, 230f/255f, 1f)),
+			new Background(Assets.manager.get("images/backgrounds/u_4.jpg", Texture.class), new Color(0f, 47f/255f, 1f, 1f)),
+			new Background(Assets.manager.get("images/backgrounds/u_5.jpg", Texture.class), new Color(1f, 47f/255f, 0f, 1f))
+		};
+		background 	= backgroundArray[4];
 		skin 		= Assets.manager.get("files/uiskin.json", Skin.class);
-	}
-	
-	public static void setBatchColor(Color c)
-	{
-		originalColor = c;
 	}
 	
 	/**

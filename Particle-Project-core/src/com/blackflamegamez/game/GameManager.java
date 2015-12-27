@@ -3,12 +3,11 @@ package com.blackflamegamez.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.blackflamegamez.game.interfaces.PBluetooth;
-import com.blackflamegamez.gameScreens.LoadingScreen;
-import com.blackflamegamez.gameScreens.MainMenuScreen;
-import com.blackflamegamez.gameScreens.OptionsScreen;
-import com.blackflamegamez.gameScreens.ParticleGameScreen;
-import com.blackflamegamez.gameScreens.PlayScreen;
-import com.blackflamegamez.gameScreens.SplashScreen;
+import com.blackflamegamez.gameScreens.Game;
+import com.blackflamegamez.gameScreens.Loading;
+import com.blackflamegamez.gameScreens.MainMenu;
+import com.blackflamegamez.gameScreens.Play;
+import com.blackflamegamez.gameScreens.Splash;
 
 
 /**
@@ -18,29 +17,26 @@ import com.blackflamegamez.gameScreens.SplashScreen;
 public class GameManager 
 {
 	private SpriteBatch batch;
-	private PBluetooth  bluetoothI;
-	private Screen      loadingScreen;
-	private Screen      splashScreen;
-	private Screen		mmScreen;
-	private Screen		gameScreen;
-	private Screen		playScreen;
-	private Screen 		optionsScreen;
-	private Screen      currentScreen;
-	private GameCore    game;
+	private GameCore    core;
 	
-	public GameManager(GameCore game , SpriteBatch batch , PBluetooth bluetoothI)
+	private Screen      loading;
+	private Screen      splash;
+	private Screen		main_menu;
+	private Screen		play;
+	private Screen		game;
+	private Screen      currentScreen;
+	
+	public GameManager(GameCore core , SpriteBatch batch , PBluetooth bluetoothI)
 	{
-		this.game  		= game;
+		this.core  		= core;
 		this.batch 		= batch;
-		this.bluetoothI = bluetoothI;
-		loadingScreen 	= null;
-		splashScreen 	= null;
-		mmScreen 		= null;
-		gameScreen 		= null;
-		playScreen		= null;
-		optionsScreen	= null;
 		
-		this.currentScreen = game.getScreen();
+		loading 		= null;
+		splash 			= null;
+		main_menu 		= null;
+		play 			= null;
+		game			= null;
+		currentScreen 	= core.getScreen();
 	}
 	
 	public SpriteBatch getSpriteBatch()
@@ -55,49 +51,41 @@ public class GameManager
 	
 	public void setLoadingScreen()
 	{
-		if(loadingScreen == null)
-			loadingScreen = new LoadingScreen(batch);
-		currentScreen = loadingScreen;
-		game.setScreen(currentScreen);
+		if(loading == null)
+			loading = new Loading(batch);
+		currentScreen = loading;
+		core.setScreen(currentScreen);
 	}
 	
 	public void setSplashScreen()
 	{
-		if(splashScreen == null)
-			splashScreen = new SplashScreen(batch);
-		currentScreen = splashScreen;
-		game.setScreen(currentScreen);
+		if(splash == null)
+			splash = new Splash(batch);
+		currentScreen = splash;
+		core.setScreen(currentScreen);
 	}
 	
 	public void setMainMenuScreen()
 	{
-		if(mmScreen == null)
-			mmScreen = new MainMenuScreen(batch , bluetoothI);
-		currentScreen = mmScreen;
-		game.setScreen(currentScreen);
+		if(main_menu == null)
+			main_menu = new MainMenu(batch);
+		currentScreen = main_menu;
+		core.setScreen(currentScreen);
+	}
+	
+	public void setPlayScreen()
+	{
+		if(play == null)
+			play = new Play(batch);
+		currentScreen = play;
+		core.setScreen(currentScreen);
 	}
 	
 	public void setGameScreen()
 	{
-		if(gameScreen == null)
-			gameScreen = new ParticleGameScreen(batch);
-		currentScreen = gameScreen;
-		game.setScreen(currentScreen);
-	}
-	
-	public void setPlayScreen() 
-	{
-		if(playScreen == null)
-			playScreen = new PlayScreen(batch);
-		currentScreen = playScreen;
-		game.setScreen(currentScreen);
-	}
-	
-	public void setOptionsScreen() 
-	{
-		if(optionsScreen == null)
-			optionsScreen = new OptionsScreen(batch);
-		currentScreen = optionsScreen;
-		game.setScreen(currentScreen);
+		if(game == null)
+			game = new Game(batch, 2);
+		currentScreen = game;
+		core.setScreen(currentScreen);
 	}
 }

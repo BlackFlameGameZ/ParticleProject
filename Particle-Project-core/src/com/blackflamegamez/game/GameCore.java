@@ -5,6 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.blackflamegamez.game.interfaces.PBluetooth;
 import com.blackflamegamez.game.staticfields.GameStaticValues;
 
+/**
+ * @author BlackFlame
+ *
+ * GameCore
+ */
+
 public class GameCore extends Game 
 {
 	private SpriteBatch batch;
@@ -16,7 +22,6 @@ public class GameCore extends Game
 	{
 		GameStaticValues.calculate();
 		batch = new SpriteBatch();
-		GameStaticValues.setBatchColor(batch.getColor());
 		gameManager = new GameManager(this , batch , bluetoothI);
 		Assets.load();
 		gameManager.setLoadingScreen();
