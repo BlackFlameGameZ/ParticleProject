@@ -7,6 +7,7 @@ import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,22 +23,24 @@ import com.blackflamegamez.game.input.Touchable;
 
 public class Play extends ScreenAdapter implements Touchable
 {
-	private SpriteBatch 	batch;
-	private Stage 			stage;
+	private SpriteBatch 	batch;				// batch to draw to
+	private Stage 			stage;				// stage for listening of mouse events
 	
-	float 					elapsedTime = 0f;
-	boolean 				show = true;
+	private MainMenuButton 	vsAI;				// button for playing vs AI
+	private MainMenuButton 	hotseat;			// button for playing hot seat
+	private MainMenuButton 	online;				// button for playin online
+	private MainMenuButton 	back;				// button for goin back to menu
+	private MainMenuButton 	pressedButton;		// tmp last pressed button
 	
-	private MainMenuButton 	vsAI;
-	private MainMenuButton 	hotseat;
-	private MainMenuButton 	online;
-	private MainMenuButton 	back;
-	private MainMenuButton 	pressedButton;
+	private MessageBox 		msgBox;				// message box
 	
-	private MessageBox 		msgBox;
+	private boolean 		switchBack;			// 
+	private boolean 		switchToGame;		// 
+	private boolean 		titleAnimation;
 	
-	private boolean 		switchBack;
-	private boolean 		switchToGame;
+	private float 			titleOpacity;
+	private float 			opacityStep;
+	
 	
 	public Play(SpriteBatch batch) 
 	{
@@ -54,7 +57,14 @@ public class Play extends ScreenAdapter implements Touchable
 		
 		msgBox 			= MainMenu.msgBox;
 		switchBack		= false;
-		switchToGame		= false;
+		switchToGame	= false;
+		titleAnimation	= false;
+		
+		vsAI.setEnabled(false);
+		online.setEnabled(false);
+		
+		titleOpacity	= 1f;
+		opacityStep		= 0f;
 	}
 	
 	@Override
@@ -72,16 +82,26 @@ public class Play extends ScreenAdapter implements Touchable
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		elapsedTime += delta;
 		batch.begin();
 			background.render(batch);
+			batch.setColor(1f, 1f, 1f, titleOpacity);
 			batch.draw(Assets.manager.get("images/main_menu/title.png", Texture.class), 114 * hRatio, 1070 * vRatio - ratioDifference, 700 * hRatio, 200 * hRatio);
+			batch.setColor(Color.WHITE);
 			vsAI.render(batch);
 			hotseat.render(batch);
 			online.render(batch);
 			back.render(batch);
 			
 			msgBox.render(batch);
+			
+			if(titleAnimation)
+				titleOpacity += opacityStep;
+			
+			if(titleOpacity <= 0)
+			{
+				titleAnimation 	= false;
+				titleOpacity	= 0;
+			}
 			
 		batch.end();
 		
@@ -91,11 +111,17 @@ public class Play extends ScreenAdapter implements Touchable
 			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setMainMenuScreen();
 		}
 		
-		if(switchToGame && !back.isInAnimation())
+		if(switchToGame && !back.isInAnimation() && !msgBox.isInAnimation() && !titleAnimation)
 		{
 			switchToGame = false;
 			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setGameScreen();
 		}
+	}
+	
+	private void hideTitle()
+	{
+		titleAnimation 	= true;
+		opacityStep 	= -0.05f;
 	}
 
 	@Override
@@ -138,6 +164,8 @@ public class Play extends ScreenAdapter implements Touchable
 					hotseat.hide(0, true);
 					online.hide(20, true);
 					back.hide(30, true);
+					msgBox.hideAll(0);
+					hideTitle();
 					switchToGame = true;
 				}
 				else if(pressedButton.equals(back))
@@ -154,7 +182,7 @@ public class Play extends ScreenAdapter implements Touchable
 			pressedButton = null;
 		}
 	}
-
+	
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) 
 	{

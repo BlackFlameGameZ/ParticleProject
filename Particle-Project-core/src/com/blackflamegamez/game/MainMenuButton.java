@@ -29,6 +29,8 @@ public class MainMenuButton
 	private float	animationStep;		// Step in pixels for animating a button
 	private int 	frameDelay;			// Delay between click and animation start
 	private float 	bottom_limit;
+	private boolean click_enabled;
+	private boolean enabled;
 	
 	public MainMenuButton(Texture textTex, float x, float y) 
 	{
@@ -44,14 +46,21 @@ public class MainMenuButton
 		frameDelay		= 0;
 		animationStep 	= 0;
 		bottom_limit	= -550;
+		click_enabled	= true;
+		enabled 		= true;
 		calculateVertices();
 	}
 	
 	public void render(SpriteBatch batch)
 	{
+		float alpha = 1f;
+		if(!enabled)
+			alpha = 0.5f;
+		batch.setColor(1f, 1f, 1f, alpha);
 		batch.draw(Assets.manager.get("images/main_menu/btn_back.png", Texture.class), x, y, hRatio * 735, hRatio * 110);
 		batch.draw(text, x, y, hRatio * 735, hRatio * 110);
-		batch.setColor(GameStaticValues.background.getColorBase());
+		Color c = GameStaticValues.background.getColorBase();
+		batch.setColor(c.r, c.g, c.b, alpha);
 		if(activated)
 			batch.draw(Assets.manager.get("images/main_menu/btn_border_pressed.png", Texture.class), x, y, hRatio * 735, hRatio * 110);
 		else
@@ -81,7 +90,7 @@ public class MainMenuButton
 	
 	public boolean contains(float x, float y)
 	{
-		if(hidden)
+		if(hidden || !click_enabled)
 			return false;
 		return shape.contains(x, y);
 	}
@@ -98,7 +107,7 @@ public class MainMenuButton
 		else
 			bottom_limit = -550f;
 		inAnimation 	= true;
-		animationStep 	= -20f * hRatio;
+		animationStep 	= -25f * hRatio;
 		frameDelay		= delay;
 		hidden 			= true;
 	}
@@ -106,7 +115,7 @@ public class MainMenuButton
 	public void unhide(int delay)
 	{
 		inAnimation 	= true;
-		animationStep 	= 20f * hRatio;
+		animationStep 	= 25f * hRatio;
 		frameDelay		= delay;
 		hidden 			= false;
 	}
@@ -122,6 +131,18 @@ public class MainMenuButton
 		blockedActivation = block;
 		if(!blockedActivation)
 			activated = false;
+	}
+	
+	public void setClick_enabled(boolean click_enabled) 
+	{
+		this.click_enabled = click_enabled;
+	}
+	
+	public void setEnabled(boolean enabled) 
+	{
+		this.enabled = enabled;
+		if(!enabled)
+			setClick_enabled(false);
 	}
 	
 	public boolean isInAnimation() 

@@ -25,6 +25,11 @@ public class Game extends ScreenAdapter implements Touchable
 {
 	private SpriteBatch 	batch;
 	private Stage 			stage;
+	
+	private boolean 		inAnimation;
+	
+	private float 			sideBarOpacity;
+	private float 			opacityStep;
 
 	
 	public Game(SpriteBatch batch, int numOfPlayers) 
@@ -33,12 +38,16 @@ public class Game extends ScreenAdapter implements Touchable
 		stage 		= new Stage();
 		
 		stage.addListener(new CustomInputListener(this));
+		sideBarOpacity 	= 0f;
+		inAnimation		= false;
+		showSideBar();
 	}
 	
 	@Override
 	public void show() 
 	{
 		Gdx.input.setInputProcessor(stage);
+		
 	}
 	
 	@Override
@@ -47,13 +56,39 @@ public class Game extends ScreenAdapter implements Touchable
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		
+			// ============================================= background image rendering
 			background.render(batch);
-			batch.draw(Assets.manager.get("images/game/side_bar/background.png", Texture.class), 0, -ratioDifference, 440 * hRatio, 1600 * hRatio);
 			
-			batch.setColor(background.getColorBase());
+			// ============================================= side bar rendering
+			batch.setColor(1f, 1f, 1f, sideBarOpacity);
+			batch.draw(Assets.manager.get("images/game/side_bar/background.png", Texture.class), 0, -ratioDifference, 440 * hRatio, 1600 * hRatio);
+			Color bc = background.getColorBase();
+			batch.setColor(bc.r, bc.g, bc.b, sideBarOpacity);
 			batch.draw(Assets.manager.get("images/game/side_bar/side_lines.png", Texture.class), 0, -ratioDifference, 440 * hRatio, 1600 * hRatio);
 			batch.setColor(Color.WHITE);
+			adjustSideBarOpacity();
+			// ============================================= end of side bar rendering
+			
 		batch.end();
+	}
+	
+	private void adjustSideBarOpacity()
+	{
+		if(inAnimation)
+			sideBarOpacity += opacityStep;
+		
+		if(sideBarOpacity >= 1)
+		{
+			inAnimation 	= false;
+			sideBarOpacity	= 1;
+		}
+	}
+	
+	private void showSideBar()
+	{
+		opacityStep = 0.05f;
+		inAnimation	= true;
 	}
 
 	@Override

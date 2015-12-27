@@ -42,6 +42,7 @@ public class MainMenu extends ScreenAdapter implements Touchable
 	private MainMenuButton 	quit;
 	private MainMenuButton 	pressedButton;
 	private boolean 		switchScreen;
+	private boolean 		startingAnimation;
 	
 	public static MessageBox 		msgBox;
 	
@@ -60,6 +61,9 @@ public class MainMenu extends ScreenAdapter implements Touchable
 		
 		msgBox 			= new MessageBox(906, 300);
 		switchScreen	= false;
+		
+		
+		donate.setEnabled(false);
 	}
 	
 	@Override
@@ -67,10 +71,12 @@ public class MainMenu extends ScreenAdapter implements Touchable
 	{
 		Gdx.input.setInputProcessor(stage);
 		System.out.println("Show menu");
+		setClickable(false);
 		quit.unhide(0);
 		donate.unhide(10);
 		options.unhide(20);
 		play.unhide(30);
+		startingAnimation = true;
 	}
 	
 	@Override
@@ -91,11 +97,22 @@ public class MainMenu extends ScreenAdapter implements Touchable
 			
 		batch.end();
 		
+		if(startingAnimation && !play.isInAnimation())
+			setClickable(true);
+		
 		if(switchScreen && !quit.isInAnimation())
 		{
 			switchScreen = false;
 			((GameCore)Gdx.app.getApplicationListener()).getGameManager().setPlayScreen();
 		}
+	}
+	
+	private void setClickable(boolean clickable)
+	{
+		play.setClick_enabled(clickable);
+		options.setClick_enabled(clickable);
+		donate.setClick_enabled(clickable);
+		quit.setClick_enabled(clickable);
 	}
 
 	@Override
@@ -127,7 +144,7 @@ public class MainMenu extends ScreenAdapter implements Touchable
 			play.unhide(0);
 			donate.unhide(10);
 			quit.unhide(20);
-			//msgBox.switchTo(BoxType.WELCOME);
+			msgBox.switchTo(BoxType.WELCOME);
 			options.setBlockedActivation(false);
 		}
 		return true;
@@ -143,12 +160,13 @@ public class MainMenu extends ScreenAdapter implements Touchable
 				if(pressedButton.equals(play))
 				{
 					System.out.println("Play");
-					//msgBox.switchTo(BoxType.WELCOME);
+					msgBox.switchTo(BoxType.WELCOME);
 					play.hide(0, false);
 					options.hide(10, false);
 					donate.hide(20, false);
 					quit.hide(30, false);
 					switchScreen = true;
+					setClickable(false);
 				}
 				else if(pressedButton.equals(options))
 				{
@@ -157,11 +175,12 @@ public class MainMenu extends ScreenAdapter implements Touchable
 					play.hide(0, false);
 					donate.hide(10, false);
 					quit.hide(20, false);
+					setClickable(false);
 				}
 				else if(pressedButton.equals(donate))
 					System.out.println("Donate");
 				else if(pressedButton.equals(quit))
-					System.out.println("Quit");
+					System.exit(0);
 			}
 			pressedButton.setActivated(false);
 			pressedButton = null;
