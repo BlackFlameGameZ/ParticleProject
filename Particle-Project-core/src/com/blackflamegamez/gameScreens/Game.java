@@ -3,7 +3,6 @@ package com.blackflamegamez.gameScreens;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.background;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.ratioDifference;
-import static com.blackflamegamez.game.staticfields.GameStaticValues.vRatio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -14,10 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.blackflamegamez.game.Assets;
-import com.blackflamegamez.game.BoxType;
-import com.blackflamegamez.game.GameCore;
-import com.blackflamegamez.game.MainMenuButton;
-import com.blackflamegamez.game.MessageBox;
+import com.blackflamegamez.game.board.Board;
 import com.blackflamegamez.game.input.CustomInputListener;
 import com.blackflamegamez.game.input.Touchable;
 
@@ -25,12 +21,13 @@ public class Game extends ScreenAdapter implements Touchable
 {
 	private SpriteBatch 	batch;
 	private Stage 			stage;
+	private Board           board;
 	
 	private boolean 		inAnimation;
 	
 	private float 			sideBarOpacity;
 	private float 			opacityStep;
-
+	
 	
 	public Game(SpriteBatch batch, int numOfPlayers) 
 	{
@@ -47,7 +44,7 @@ public class Game extends ScreenAdapter implements Touchable
 	public void show() 
 	{
 		Gdx.input.setInputProcessor(stage);
-		
+		board = new Board();
 	}
 	
 	@Override
@@ -69,7 +66,7 @@ public class Game extends ScreenAdapter implements Touchable
 			batch.setColor(Color.WHITE);
 			adjustSideBarOpacity();
 			// ============================================= end of side bar rendering
-			
+			board.render(batch , delta);
 		batch.end();
 	}
 	

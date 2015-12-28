@@ -5,6 +5,10 @@ import android.widget.Toast;
 
 import com.blackflamegamez.game.interfaces.PBluetooth;
 
+/**
+ * @author Milan Topalovic
+ *
+ */
 public class AndroidPBluetooth implements PBluetooth
 {
 

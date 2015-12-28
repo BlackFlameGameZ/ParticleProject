@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Align;
-import com.blackflamegamez.game.particle.Particle;
 
 import static com.blackflamegamez.game.staticfields.GameStaticValues.background;
 import static com.blackflamegamez.game.staticfields.GameStaticValues.hRatio;
@@ -34,7 +33,6 @@ public class MessageBox
 	private Texture 	border;				// Border image of message box
 	private BoxType 	mode;				// Box mode WELCOME - OPTIONS - PARTICLE_INFO
 	private BoxType		switchTo;			// Box mode to switch to
-	private Particle 	particle;			// Particle object which is used for displaying particle info
 	private BitmapFont	titleFont;			// Font used for drawing any title
 	private BitmapFont  textFont;			// Font used for drawing text
 	private Rectangle	shape;				// Used for mouse listening
@@ -53,7 +51,6 @@ public class MessageBox
 		opacityStep 	= 0f;
 		contentAlpha 	= 1f;
 		boxAlpha		= 1f;
-		particle 		= null;
 		mode			= BoxType.WELCOME;
 		
 		titleFont = Assets.manager.get("fonts/box_title.fnt", BitmapFont.class);
