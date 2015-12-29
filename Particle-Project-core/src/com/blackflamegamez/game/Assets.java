@@ -42,6 +42,7 @@ public class Assets
 		manager.load("images/game/side_bar/background.png", Texture.class);		// MainMenu button text image
 		manager.load("images/game/side_bar/side_lines.png", Texture.class);		// MainMenu button text image
 		manager.load("images/game/field.png" , Texture.class);
+		manager.load("images/game/field_border.png" , Texture.class);
 	}
 	
 	public static void setFilters()
@@ -69,5 +70,6 @@ public class Assets
 		manager.get("images/game/side_bar/background.png", Texture.class)		.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/game/side_bar/side_lines.png", Texture.class)		.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		manager.get("images/game/field.png" , Texture.class)                    .setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		manager.get("images/game/field_border.png" , Texture.class)             .setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 }
